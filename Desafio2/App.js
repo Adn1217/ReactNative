@@ -20,6 +20,15 @@ export default function App() {
     }
   }
 
+  function deleteItem(itemDeleted){
+    // let newWorkList = workList;
+    // let itemIndex = workList.indexOf(itemDeleted)
+    // let deletedItem= newWorkList.splice(itemIndex,1);
+    // setWorkList(newWorkList);
+    // setText('');
+    setWorkList(workList.filter((item) => item !== itemDeleted))
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.inputs}>
@@ -32,15 +41,21 @@ export default function App() {
           onChangeText={(text) => setThisWork(text)}
           value={text}/>
         <Button title="Agregar"
+          
           onPress={() => addItem()} />
       </View>
       <View style={styles.listContainer}>
         {
           workList.map((item) => {
             return(
-              <Text style={styles.listItem} key={Math.random()*1000}>
-                {item}
-              </Text>
+              < View style={styles.listItem} key={Math.random()*1000}>
+                <Text style={styles.itemName}>
+                  {item}
+                </Text>
+                <Button title="Eliminar" color ='red'
+                  style={styles.deleteButton}
+                  onPress={() => deleteItem(item)} />
+              </View> 
             )
           })
         }

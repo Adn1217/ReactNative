@@ -18,9 +18,14 @@ export const styles = StyleSheet.create({
     marginTop: 10
   },
   listItem: {
+    flexDirection: 'row',
     marginTop: 10,
     marginBottom: 10,
-    fontStyle: 'italic'
+    alignItems: 'center',
+    fontStyle: 'italic',
+  },
+  itemName: {
+    marginRight: 10,
   },
   title: {
     fontSize: 25
@@ -31,5 +36,8 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     paddingLeft: 5
+  },
+  deleteButton: {
+    color: '#212121' 
   }
 });
