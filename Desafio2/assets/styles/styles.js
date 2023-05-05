@@ -40,5 +40,21 @@ export const styles = StyleSheet.create({
     textAlign: 'center'
   },
   deleteButton: {
+  },
+  modal: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    padding: 50,
+    backgroundColor: '#E0E0E0',
+    opacity: 0.9
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    // alignItems: 'center',
+    justifyContent: 'space-between',
   }
 });

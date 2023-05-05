@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Text, TextInput, View, Button, FlatList } from 'react-native';
+import { Text, TextInput, View, Button, FlatList, Modal } from 'react-native';
 import { styles } from './assets/styles/styles.js';
 
 export default function App() {
 
   const [text, setText] = React.useState();
   const [workList, setWorkList] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   function setThisWork(text) {
     setText(text);
@@ -21,7 +23,13 @@ export default function App() {
   }
 
   function deleteItem(itemDeleted){
-    setWorkList(workList.filter((item) => item !== itemDeleted))
+    setWorkList(workList.filter((item) => item !== itemDeleted));
+    setModalVisible(false);
+  }
+
+  function openDeleteModal(selectedItem){
+    setModalVisible(true);
+    setSelectedItem(selectedItem);
   }
 
   const workToRender = ({item}) => {
@@ -33,7 +41,7 @@ export default function App() {
       <Button title="Eliminar"
         color ='red'
         style={styles.deleteButton}
-        onPress={() => deleteItem(item)} />
+        onPress={() => openDeleteModal(item)} />
     </View>   
     )}
 
@@ -56,6 +64,20 @@ export default function App() {
         data={workList}
         keyExtractor={(item) => item.id}
       />
+      <Modal visible={modalVisible} 
+      animationType='slide'
+      transparent={true}>
+        <View style={styles.modal}>
+          <Text style={styles.title}>¿Está seguro de eliminar esta tarea?</Text>
+          <View style={styles.modalButtons}> 
+            <Button title="Eliminar"
+              onPress={() => deleteItem(selectedItem)} />
+            <Button title="Cancelar"
+              color='gray'
+              onPress={() => setModalVisible(false)} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
