@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     marginTop: 50
   },
   listContainer: {
-    fontStyle: 'bold',
+    fontWeight: 'bold',
   },
   inputs: {
     alignItems: 'center',
@@ -48,6 +48,9 @@ export const styles = StyleSheet.create({
     padding: 50,
     backgroundColor: '#E0E0E0',
     opacity: 0.9
+  },
+  modalDescription: {
+    fontWeight: 'bold'
   },
   modalButtons: {
     flexDirection: 'row',

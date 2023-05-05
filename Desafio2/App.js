@@ -69,6 +69,7 @@ export default function App() {
       transparent={true}>
         <View style={styles.modal}>
           <Text style={styles.title}>¿Está seguro de eliminar esta tarea?</Text>
+          <Text style={styles.modalDescription}>Id: {selectedItem?.id}</Text>
           <View style={styles.modalButtons}> 
             <Button title="Eliminar"
               onPress={() => deleteItem(selectedItem)} />
