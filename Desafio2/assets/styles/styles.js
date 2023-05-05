@@ -6,9 +6,10 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 50
   },
   listContainer: {
-    fontStyle: 'bold'
+    fontStyle: 'bold',
   },
   inputs: {
     alignItems: 'center',
@@ -32,12 +33,12 @@ export const styles = StyleSheet.create({
   },
   textInput: {
     borderWidth: 1,
-    width: 100,
+    width: 200,
     marginTop: 10,
     marginBottom: 10,
-    paddingLeft: 5
+    paddingLeft: 5,
+    textAlign: 'center'
   },
   deleteButton: {
-    color: '#212121' 
   }
 });

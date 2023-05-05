@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Text, TextInput, View, Button } from 'react-native';
+import { Text, TextInput, View, Button, FlatList } from 'react-native';
 import { styles } from './assets/styles/styles.js';
 
 export default function App() {
 
   const [text, setText] = React.useState();
-  const [workList, setWorkList] = React.useState([]);
+  const [workList, setWorkList] = useState([]);
 
   function setThisWork(text) {
     setText(text);
@@ -14,20 +14,28 @@ export default function App() {
 
   function addItem(){
     if (text !== ''){
-      let newList = [...workList, text]
+      let newList = [...workList, {id: Math.random()*1000, work: text}]
       setWorkList(newList)
       setText('');
     }
   }
 
   function deleteItem(itemDeleted){
-    // let newWorkList = workList;
-    // let itemIndex = workList.indexOf(itemDeleted)
-    // let deletedItem= newWorkList.splice(itemIndex,1);
-    // setWorkList(newWorkList);
-    // setText('');
     setWorkList(workList.filter((item) => item !== itemDeleted))
   }
+
+  const workToRender = ({item}) => {
+    return (
+    <View style={styles.listItem}>
+      <Text style={styles.itemName}>
+        {item.work}
+      </Text>
+      <Button title="Eliminar"
+        color ='red'
+        style={styles.deleteButton}
+        onPress={() => deleteItem(item)} />
+    </View>   
+    )}
 
   return (
     <View style={styles.container}>
@@ -41,25 +49,13 @@ export default function App() {
           onChangeText={(text) => setThisWork(text)}
           value={text}/>
         <Button title="Agregar"
-          
           onPress={() => addItem()} />
       </View>
-      <View style={styles.listContainer}>
-        {
-          workList.map((item) => {
-            return(
-              < View style={styles.listItem} key={Math.random()*1000}>
-                <Text style={styles.itemName}>
-                  {item}
-                </Text>
-                <Button title="Eliminar" color ='red'
-                  style={styles.deleteButton}
-                  onPress={() => deleteItem(item)} />
-              </View> 
-            )
-          })
-        }
-      </View>
+      <FlatList style={styles.listContainer}
+        renderItem={workToRender}
+        data={workList}
+        keyExtractor={(item) => item.id}
+      />
     </View>
   );
 }
