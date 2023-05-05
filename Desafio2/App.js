@@ -32,6 +32,11 @@ export default function App() {
     setSelectedItem(selectedItem);
   }
 
+  function cancelDeletion(){
+    setSelectedItem(null)
+    setModalVisible(false)
+  }
+
   const workToRender = ({item}) => {
     return (
     <View style={styles.listItem}>
@@ -72,10 +77,11 @@ export default function App() {
           <Text style={styles.modalDescription}>Id: {selectedItem?.id}</Text>
           <View style={styles.modalButtons}> 
             <Button title="Eliminar"
+              color='red'
               onPress={() => deleteItem(selectedItem)} />
             <Button title="Cancelar"
               color='gray'
-              onPress={() => setModalVisible(false)} />
+              onPress={() => cancelDeletion()} />
           </View>
         </View>
       </Modal>
