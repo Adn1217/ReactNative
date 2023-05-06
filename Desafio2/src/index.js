@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, TextInput, View, Button, FlatList, Modal } from 'react-native';
-import { styles } from './assets/styles/styles.js';
+import { styles } from '../assets/styles/styles.js';
 
 export default function App() {
 
