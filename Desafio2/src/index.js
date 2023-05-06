@@ -1,8 +1,9 @@
 
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Text, TextInput, View, Button, FlatList, Modal } from 'react-native';
+import { Text, View, Button, FlatList } from 'react-native';
 import { styles } from '../assets/styles/styles.js';
+import { Input, Modal } from './components/index';
 
 export default function App() {
 
@@ -53,39 +54,31 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputs}>
-        <Text style={styles.title}>To Do List</Text>
-        <Text style={styles.description}>Lista de actividades a realizar</Text>
-        {/* <StatusBar style="auto" /> */}
-        <TextInput
-          style={styles.textInput}
-          placeholder="Ingrese Tarea"
-          onChangeText={(text) => setThisWork(text)}
-          value={text}/>
-        <Button title="Agregar"
-          onPress={() => addItem()} />
-      </View>
+     <Input 
+      placeholder = {"Ingrese tarea"}
+      value={text}
+      buttonTitle={"Agregar"} 
+      inputHandler={setThisWork}
+      pressHandler={addItem}
+      />
       <FlatList style={styles.listContainer}
         renderItem={workToRender}
         data={workList}
         keyExtractor={(item) => item.id}
       />
-      <Modal visible={modalVisible} 
-      animationType='slide'
-      transparent={true}>
-        <View style={styles.modal}>
-          <Text style={styles.title}>¿Está seguro de eliminar esta tarea?</Text>
-          <Text style={styles.modalDescription}>Id: {selectedItem?.id}</Text>
-          <View style={styles.modalButtons}> 
-            <Button title="Eliminar"
-              color='red'
-              onPress={() => deleteItem(selectedItem)} />
-            <Button title="Cancelar"
-              color='gray'
-              onPress={() => cancelDeletion()} />
-          </View>
-        </View>
-      </Modal>
+      <Modal 
+        modalVisible={modalVisible}
+        animation={"slide"}
+        transparentModal={true}
+        msg={"¿Está seguro de eliminar esta tarea?"}
+        selectedItem={selectedItem}
+        acceptButtonTitle={"Eliminar"}
+        acceptButtonColor={"red"}
+        acceptHandler={deleteItem}
+        denyButtonTitle={"Cancelar"}
+        denyButtonColor={"gray"}
+        denyHandler={cancelDeletion}
+      />
     </View>
   );
 }
