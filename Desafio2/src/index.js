@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, FlatList } from 'react-native';
 import { styles } from '../assets/styles/styles.js';
-import { Input, Modal } from './components/index';
+import { Input, Modal, Item } from './components/index';
 
 export default function App() {
 
@@ -24,6 +24,7 @@ export default function App() {
     }
   }
 
+
   function deleteItem(itemDeleted){
     setWorkList(workList.filter((item) => item !== itemDeleted));
     setModalVisible(false);
@@ -40,17 +41,12 @@ export default function App() {
   }
 
   const workToRender = ({item}) => {
-    return (
-    <View style={styles.listItem}>
-      <Text style={styles.itemName}>
-        {item.work}
-      </Text>
-      <Button title="Eliminar"
-        color ='red'
-        style={styles.deleteButton}
-        onPress={() => openDeleteModal(item)} />
-    </View>   
-    )}
+    return (<Item
+      item = {item}
+      buttonTitle={"Eliminar"}
+      buttonColor={"red"}
+      onPressHandle={openDeleteModal} />)
+  }
 
   return (
     <View style={styles.container}>

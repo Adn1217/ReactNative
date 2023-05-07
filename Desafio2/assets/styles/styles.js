@@ -11,16 +11,4 @@ export const styles = StyleSheet.create({
   listContainer: {
     fontWeight: 'bold',
   },
-  listItem: {
-    flexDirection: 'row',
-    marginTop: 10,
-    marginBottom: 10,
-    alignItems: 'center',
-    fontStyle: 'italic',
-  },
-  itemName: {
-    marginRight: 10,
-  },
-  deleteButton: {
-  },
 });
