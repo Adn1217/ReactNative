@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, FlatList } from 'react-native';
 import { styles } from '../assets/styles/styles.js';
 import { Input, Modal, Item, Header } from './components/index';
+import { theme } from './components/constants';
 
 export default function App() {
 
@@ -72,10 +73,10 @@ export default function App() {
         msg={"¿Está seguro de eliminar esta tarea?"}
         selectedItem={selectedItem}
         acceptButtonTitle={"Eliminar"}
-        acceptButtonColor={"red"}
+        acceptButtonColor={theme.colors.warning}
         acceptHandler={deleteItem}
         denyButtonTitle={"Cancelar"}
-        denyButtonColor={"gray"}
+        denyButtonColor={theme.colors.cancel}
         denyHandler={cancelDeletion}
       />
     </View>

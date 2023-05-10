@@ -1,11 +1,11 @@
 
 import { StyleSheet } from 'react-native';
-
+import { theme } from '../constants';
 
 export const styles = StyleSheet.create({
     header: {
         minheight: '10%',
-        backgroundColor: '#0A2463',
+        backgroundColor: theme.colors.primary,
         marginBottom: 10,
         alignItems: 'center',
         justifyContent: 'center',
