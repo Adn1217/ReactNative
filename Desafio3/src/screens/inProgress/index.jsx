@@ -6,19 +6,21 @@ import { Input, Modal, Item, Header } from '../../components/index';
 import { theme } from '../../components/constants';
 
 
-  const InProgressScreen = () => {
+  const InProgressScreen = ({workList, setWorkList}) => {
     const [text, setText] = React.useState('');
-    const [workList, setWorkList] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    
+    const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'InProgress')) 
 
     const workToRender = ({item}) => {
       return (<Item
         item = {item}
-        buttonTitle={"Eliminar"}
-        buttonColor={"red"}
-        onPressHandle={openDeleteModal} />)
+        button1Title={"Eliminar"}
+        button1Color={"red"}
+        onPressHandle={openDeleteModal}
+        button2Title={"Completar"}
+        button2Color={"green"}
+        onPressHandle2={completeWorkItem} />)
     }
 
     function deleteItem(itemDeleted){
@@ -36,13 +38,22 @@ import { theme } from '../../components/constants';
       setModalVisible(false)
     }
     
+    function completeWorkItem(item){
+      item.status = 'Completed';
+      let newItem = item; 
+      let newWorkList = [...workList];
+      newWorkList.splice(workList.findIndex((workItem) => workItem.id === item.id),1,newItem)
+      console.log('Nueva lista de tareas: ', newWorkList);
+      setWorkList(newWorkList);
+    }
+    
     return (
       <View>
         <View style={styles.listContainer}>
           <Text style={styles.title}>Actividades en progreso</Text>
           <FlatList 
             renderItem={workToRender}
-            data={workList}
+            data={workListToShow}
             keyExtractor={(item) => item.id}
           />
         </View>

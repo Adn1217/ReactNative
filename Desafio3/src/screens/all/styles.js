@@ -9,4 +9,13 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    Pending: {
+        backgroundColor: 'orange'
+    },
+    InProgress: {
+        backgroundColor: 'lightgreen'
+    },
+    Completed: {
+        backgroundColor: 'green'
+    }
 })

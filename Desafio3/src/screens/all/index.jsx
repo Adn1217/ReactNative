@@ -5,9 +5,8 @@ import { Input, Modal, Item, Header } from '../../components/index';
 import { theme } from '../../components/constants';
 
 
-  const AllScreen = () => {
+  const AllScreen = ({workList, setWorkList}) => {
     const [text, setText] = React.useState('');
-    const [workList, setWorkList] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     
@@ -15,9 +14,10 @@ import { theme } from '../../components/constants';
     const workToRender = ({item}) => {
       return (<Item
         item = {item}
-        buttonTitle={"Eliminar"}
-        buttonColor={"red"}
-        onPressHandle={openDeleteModal} />)
+        button1Title={"Eliminar"}
+        button1Color={"red"}
+        onPressHandle={openDeleteModal}
+       />)
     }
 
     function addItem(){

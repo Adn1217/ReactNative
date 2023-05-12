@@ -5,27 +5,19 @@ import { Input, Modal, Item, Header } from '../../components/index';
 import { theme } from '../../components/constants';
 
 
-  const CompletedScreen = () => {
+  const CompletedScreen = ({workList, setWorkList}) => {
     const [text, setText] = React.useState('');
-    const [workList, setWorkList] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    
+    const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Completed')) 
 
     const workToRender = ({item}) => {
       return (<Item
         item = {item}
-        buttonTitle={"Eliminar"}
-        buttonColor={"red"}
-        onPressHandle={openDeleteModal} />)
-    }
-
-    function addItem(){
-      if (text !== ''){
-        let newList = [...workList, {id: Math.random()*1000, work: text}]
-        setWorkList(newList)
-        setText('');
-      }
+        button1Title={"Eliminar"}
+        button1Color={"red"}
+        onPressHandle={openDeleteModal}
+        />)
     }
 
     function deleteItem(itemDeleted){
@@ -49,7 +41,7 @@ import { theme } from '../../components/constants';
           <Text style={styles.title}>Actividades Completadas</Text>
           <FlatList 
             renderItem={workToRender}
-            data={workList}
+            data={workListToShow}
             keyExtractor={(item) => item.id}
           />
         </View>

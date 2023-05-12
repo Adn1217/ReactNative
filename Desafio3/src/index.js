@@ -8,16 +8,17 @@ import { PendingScreen, InProgressScreen, CompletedScreen, AllScreen } from './s
 export default function App() {
 
   const [selectedScreen, setSelectedScreen] = useState('Pending');
+  const [workList, setWorkList] = useState([]);
 
   const Content = () => {
     if (selectedScreen === 'Pending'){
-      return <PendingScreen />;
+      return <PendingScreen workList = {workList} setWorkList={setWorkList}/>;
     }else if (selectedScreen === 'InProgress'){
-      return (<InProgressScreen />);
+      return (<InProgressScreen workList = {workList} setWorkList={setWorkList}/>);
     }else if (selectedScreen === 'Completed'){
-      return (<CompletedScreen />);
+      return (<CompletedScreen workList = {workList} setWorkList={setWorkList}/>);
     }else{  
-      return (<AllScreen />);
+      return (<AllScreen workList = {workList} setWorkList={setWorkList}/>);
     }
   }
 

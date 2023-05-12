@@ -5,19 +5,21 @@ import { Input, Modal, Item, Header } from '../../components/index';
 import { theme } from '../../components/constants';
 
 
-  const InputScreen = () => {
+  const InputScreen = ({workList, setWorkList}) => {
     const [text, setText] = React.useState('');
-    const [workList, setWorkList] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    
+    const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Pending')) 
 
     const workToRender = ({item}) => {
       return (<Item
         item = {item}
-        buttonTitle={"Eliminar"}
-        buttonColor={"red"}
-        onPressHandle={openDeleteModal} />)
+        button1Title={"Eliminar"}
+        button1Color={"red"}
+        onPressHandle={openDeleteModal}
+        button2Title={"Iniciar"}
+        button2Color={"lightgreen"}
+        onPressHandle2={beginWorkItem} />)
     }
 
     function setThisWork(text) {
@@ -26,14 +28,29 @@ import { theme } from '../../components/constants';
 
     function addItem(){
       if (text !== ''){
-        let newList = [...workList, {id: Math.random()*1000, work: text}]
+        let newList = [...workList, {
+          id: Math.random()*1000, 
+          work: text, 
+          status: 'Pending'}]
+        console.log('Nueva lista de tareas: ', newList);
         setWorkList(newList)
         setText('');
       }
     }
 
+    function beginWorkItem(item){
+      item.status = 'InProgress';
+      let newItem = item;
+      let newWorkList = [...workList];
+      newWorkList.splice(workList.findIndex((workItem) => workItem.id === item.id),1,newItem)
+      console.log('Nueva lista de tareas: ', newWorkList);
+      setWorkList(newWorkList);
+    }
+
     function deleteItem(itemDeleted){
-      setWorkList(workList.filter((item) => item !== itemDeleted));
+      let newWorkList = workList.filter((item) => item.id !== itemDeleted.id);
+      console.log('Nueva lista de tareas: ', newWorkList);
+      setWorkList(newWorkList);
       setModalVisible(false);
     }
 
@@ -60,7 +77,7 @@ import { theme } from '../../components/constants';
         <View style={styles.listContainer}>
           <FlatList 
             renderItem={workToRender}
-            data={workList}
+            data={workListToShow}
             keyExtractor={(item) => item.id}
           />
         </View>

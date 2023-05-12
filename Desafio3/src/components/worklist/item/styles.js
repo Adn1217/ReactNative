@@ -11,7 +11,19 @@ export const styles = StyleSheet.create({
   },
   itemName: {
     marginRight: 10,
+    minHeight: 35,
+    minWidth: 200,
+    textAlign: 'center'
   },
   deleteButton: {
   },
+  Pending: {
+    backgroundColor: 'orange',
+  },
+  InProgress: {
+    backgroundColor: 'lightgreen',
+  },
+  Completed: {
+    backgroundColor: 'green',
+  }
 })
