@@ -1,11 +1,9 @@
 
 import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Text, View, Button, FlatList } from 'react-native';
+import { Text, View } from 'react-native';
 import { styles } from '../assets/styles/styles.js';
 import { Input, Modal, Item, Header } from './components/index';
-import { theme } from './components/constants';
-import { PendingScreen } from './screens/'
+import { PendingScreen, InProgressScreen, CompletedScreen, AllScreen } from './screens/'
 
 export default function App() {
 
@@ -14,14 +12,18 @@ export default function App() {
   const Content = () => {
     if (selectedScreen === 'Pending'){
       return <PendingScreen />;
+    }else if (selectedScreen === 'InProgress'){
+      return (<InProgressScreen />);
+    }else if (selectedScreen === 'Completed'){
+      return (<CompletedScreen />);
     }else{  
-      return null ;
+      return (<AllScreen />);
     }
   }
 
   return (
     <View style={styles.container}>
-     <Header title={"TO DO LIST"} />
+     <Header title={"TO DO LIST"} selectScreen = {setSelectedScreen}/>
      <Content />
     </View>
   );

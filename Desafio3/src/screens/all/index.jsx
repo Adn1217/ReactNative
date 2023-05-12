@@ -5,7 +5,7 @@ import { Input, Modal, Item, Header } from '../../components/index';
 import { theme } from '../../components/constants';
 
 
-  const InputScreen = () => {
+  const AllScreen = () => {
     const [text, setText] = React.useState('');
     const [workList, setWorkList] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
@@ -18,10 +18,6 @@ import { theme } from '../../components/constants';
         buttonTitle={"Eliminar"}
         buttonColor={"red"}
         onPressHandle={openDeleteModal} />)
-    }
-
-    function setThisWork(text) {
-      setText(text);
     }
 
     function addItem(){
@@ -49,15 +45,8 @@ import { theme } from '../../components/constants';
     
     return (
       <View>
-      <Input title={"Nueva tarea"}
-        description={"Planifique sus tareas"}
-        placeholder = {"Ingrese nueva tarea"}
-        value={text}
-        buttonTitle={"Agregar"} 
-        inputHandler={setThisWork}
-        pressHandler={addItem}
-        />
         <View style={styles.listContainer}>
+          <Text style={styles.title}>Todas las actividades</Text>
           <FlatList 
             renderItem={workToRender}
             data={workList}
@@ -81,5 +70,5 @@ import { theme } from '../../components/constants';
     );
   }
 
-  export default InputScreen;
+  export default AllScreen;
 

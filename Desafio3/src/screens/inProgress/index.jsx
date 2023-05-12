@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, FlatList } from 'react-native';
 import { styles } from './styles.js';
 import { Input, Modal, Item, Header } from '../../components/index';
 import { theme } from '../../components/constants';
 
 
-  const InputScreen = () => {
+  const InProgressScreen = () => {
     const [text, setText] = React.useState('');
     const [workList, setWorkList] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
@@ -18,18 +19,6 @@ import { theme } from '../../components/constants';
         buttonTitle={"Eliminar"}
         buttonColor={"red"}
         onPressHandle={openDeleteModal} />)
-    }
-
-    function setThisWork(text) {
-      setText(text);
-    }
-
-    function addItem(){
-      if (text !== ''){
-        let newList = [...workList, {id: Math.random()*1000, work: text}]
-        setWorkList(newList)
-        setText('');
-      }
     }
 
     function deleteItem(itemDeleted){
@@ -49,15 +38,8 @@ import { theme } from '../../components/constants';
     
     return (
       <View>
-      <Input title={"Nueva tarea"}
-        description={"Planifique sus tareas"}
-        placeholder = {"Ingrese nueva tarea"}
-        value={text}
-        buttonTitle={"Agregar"} 
-        inputHandler={setThisWork}
-        pressHandler={addItem}
-        />
         <View style={styles.listContainer}>
+          <Text style={styles.title}>Actividades en progreso</Text>
           <FlatList 
             renderItem={workToRender}
             data={workList}
@@ -81,5 +63,5 @@ import { theme } from '../../components/constants';
     );
   }
 
-  export default InputScreen;
+  export default InProgressScreen;
 

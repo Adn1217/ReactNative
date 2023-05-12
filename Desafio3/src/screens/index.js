@@ -1,4 +1,4 @@
 export { default as PendingScreen } from './pending';
-// export { default as InProgress } from './inProgress';
-// export { default as Completed } from './completed';
-// export { default as AllWorks } from './allWorks';
+export { default as InProgressScreen } from './inProgress';
+export { default as CompletedScreen } from './completed';
+export { default as AllScreen } from './all';
