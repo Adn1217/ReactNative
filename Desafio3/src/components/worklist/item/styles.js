@@ -13,7 +13,8 @@ export const styles = StyleSheet.create({
     marginRight: 10,
     minHeight: 35,
     minWidth: 200,
-    textAlign: 'center'
+    textAlign: 'center',
+    paddingVertical: 8
   },
   deleteButton: {
   },

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, FlatList } from 'react-native';
 import { styles } from './styles.js';
 import { Input, Modal, Item, Header } from '../../components/index';
@@ -18,7 +17,7 @@ import { theme } from '../../components/constants';
         button1Title={"Eliminar"}
         button1Color={"red"}
         onPressHandle={openDeleteModal}
-        button2Title={"Completar"}
+        button2Title={"Terminar"}
         button2Color={"green"}
         onPressHandle2={completeWorkItem} />)
     }

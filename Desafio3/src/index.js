@@ -8,23 +8,31 @@ import { PendingScreen, InProgressScreen, CompletedScreen, AllScreen } from './s
 export default function App() {
 
   const [selectedScreen, setSelectedScreen] = useState('Pending');
-  const [workList, setWorkList] = useState([]);
+  const [workList, setWorkList] = useState([{"id": 271.62295550873654, "status": "Pending", "work": "Tarea 1"}]);
+
+  function selectScreen(selection){
+    setSelectedScreen(selection)
+  }
+
+  function updateWorkList(workList){
+    setWorkList(workList)
+  }
 
   const Content = () => {
     if (selectedScreen === 'Pending'){
-      return <PendingScreen workList = {workList} setWorkList={setWorkList}/>;
+      return <PendingScreen workList = {workList} setWorkList={updateWorkList}/>;
     }else if (selectedScreen === 'InProgress'){
-      return (<InProgressScreen workList = {workList} setWorkList={setWorkList}/>);
+      return (<InProgressScreen workList = {workList} setWorkList={updateWorkList}/>);
     }else if (selectedScreen === 'Completed'){
-      return (<CompletedScreen workList = {workList} setWorkList={setWorkList}/>);
+      return (<CompletedScreen workList = {workList} setWorkList={updateWorkList}/>);
     }else{  
-      return (<AllScreen workList = {workList} setWorkList={setWorkList}/>);
+      return (<AllScreen workList = {workList} setWorkList={updateWorkList}/>);
     }
   }
 
   return (
     <View style={styles.container}>
-     <Header title={"TO DO LIST"} selectScreen = {setSelectedScreen}/>
+     <Header title={"TO DO LIST"} selectScreen = {selectScreen}/>
      <Content />
     </View>
   );

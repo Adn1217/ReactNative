@@ -66,15 +66,16 @@ import { theme } from '../../components/constants';
     
     return (
       <View>
-      <Input title={"Nueva tarea"}
-        description={"Planifique sus tareas"}
-        placeholder = {"Ingrese nueva tarea"}
-        value={text}
-        buttonTitle={"Agregar"} 
-        inputHandler={setThisWork}
-        pressHandler={addItem}
-        />
+        <Input title={"Nueva tarea"}
+          description={"Planifique sus tareas"}
+          placeholder = {"Ingrese nueva tarea"}
+          value={text}
+          buttonTitle={"Agregar"} 
+          inputHandler={setThisWork}
+          pressHandler={addItem}
+          />
         <View style={styles.listContainer}>
+          {workListToShow.length > 0 ? <Text style={styles.title}>Actividades pendientes</Text> : null}
           <FlatList 
             renderItem={workToRender}
             data={workListToShow}

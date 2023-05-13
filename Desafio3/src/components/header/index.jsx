@@ -8,16 +8,16 @@ const Header = ({title, selectScreen}) => {
             <Text style={styles.headerTitle}>{title}</Text>
             <View style={styles.options}>
                 <TouchableHighlight onPress={()=>{selectScreen('Pending')}} underlayColor={theme.colors.secondary} styles={styles.option} >
-                    <Text style={styles.item}>Pending</Text>
+                    <Text style={styles.item}>Pendientes</Text>
                 </TouchableHighlight>    
                 <TouchableHighlight onPress={()=>{selectScreen('InProgress')}} underlayColor={theme.colors.secondary} styles={styles.option}>
-                    <Text style={styles.item}>In Progress</Text>
+                    <Text style={styles.item}>En Progreso</Text>
                 </TouchableHighlight>    
                 <TouchableHighlight onPress={()=>{selectScreen('Completed')}} underlayColor={theme.colors.secondary} styles={styles.option}>
-                    <Text style={styles.item}>Completed</Text>
+                    <Text style={styles.item}>Completadas</Text>
                 </TouchableHighlight>    
                 <TouchableHighlight onPress={()=>{selectScreen('All')}} underlayColor={theme.colors.secondary} styles={styles.option}>
-                    <Text style={styles.item}>All</Text>
+                    <Text style={styles.item}>Todas</Text>
                 </TouchableHighlight>    
             </View>
         </View>

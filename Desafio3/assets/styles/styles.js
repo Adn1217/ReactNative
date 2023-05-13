@@ -6,9 +6,4 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginTop: 50
   },
-  listContainer: {
-    fontWeight: 'bold',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 });
