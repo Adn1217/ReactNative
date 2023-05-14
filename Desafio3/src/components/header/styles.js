@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
         minWidth: '25%',
         paddingVertical: '2%',
         textAlign: 'center',
+        fontFamily: 'poppins'
     }
 
 })

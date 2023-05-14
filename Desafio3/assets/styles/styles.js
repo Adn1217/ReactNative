@@ -6,4 +6,10 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginTop: 50
   },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff'
+  }
 });

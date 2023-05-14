@@ -14,7 +14,8 @@ export const styles = StyleSheet.create({
     minHeight: 35,
     minWidth: 200,
     textAlign: 'center',
-    paddingVertical: 8
+    paddingVertical: 6,
+    fontFamily: 'poppins'
   },
   deleteButton: {
   },
