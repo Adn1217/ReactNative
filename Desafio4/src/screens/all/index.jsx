@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Text, View, Button, FlatList } from 'react-native';
 import { styles } from './styles.js';
 import { Input, Modal, Item, Header } from '../../components/index';
-import { theme } from '../../components/constants';
+import { theme } from '../../constants/index.js';
 
 
-  const InProgressScreen = ({workList, setWorkList}) => {
+  const AllScreen = ({workList, setWorkList, route, navigation}) => {
     const [text, setText] = React.useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'InProgress')) 
+    
 
     const workToRender = ({item}) => {
       return (<Item
@@ -17,9 +17,15 @@ import { theme } from '../../components/constants';
         button1Title={"Eliminar"}
         button1Color={"red"}
         onPressHandle={openDeleteModal}
-        button2Title={"Terminar"}
-        button2Color={"green"}
-        onPressHandle2={completeWorkItem} />)
+       />)
+    }
+
+    function addItem(){
+      if (text !== ''){
+        let newList = [...workList, {id: Math.random()*1000, work: text}]
+        setWorkList(newList)
+        setText('');
+      }
     }
 
     function deleteItem(itemDeleted){
@@ -37,22 +43,14 @@ import { theme } from '../../components/constants';
       setModalVisible(false)
     }
     
-    function completeWorkItem(item){
-      item.status = 'Completed';
-      let newItem = item; 
-      let newWorkList = [...workList];
-      newWorkList.splice(workList.findIndex((workItem) => workItem.id === item.id),1,newItem)
-      console.log('Nueva lista de tareas: ', newWorkList);
-      setWorkList(newWorkList);
-    }
-    
     return (
       <View>
         <View style={styles.listContainer}>
-          <Text style={styles.title}>Actividades en progreso</Text>
+          <Header title={"TO DO LIST"} navigation={navigation} route={route}/>
+          <Text style={styles.title}>Todas las actividades</Text>
           <FlatList 
             renderItem={workToRender}
-            data={workListToShow}
+            data={workList}
             keyExtractor={(item) => item.id}
           />
         </View>
@@ -73,5 +71,5 @@ import { theme } from '../../components/constants';
     );
   }
 
-  export default InProgressScreen;
+  export default AllScreen;
 

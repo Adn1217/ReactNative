@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Text, View, Button, FlatList } from 'react-native';
 import { styles } from './styles.js';
 import { Input, Modal, Item, Header } from '../../components/index';
-import { theme } from '../../components/constants';
+import { theme } from '../../constants/index.js';
 
 
-  const InputScreen = ({workList, setWorkList}) => {
+  const InputScreen = ({workList, setWorkList, route, navigation}) => {
     const [text, setText] = React.useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
@@ -66,6 +66,7 @@ import { theme } from '../../components/constants';
     
     return (
       <View>
+        <Header title={"TO DO LIST"} navigation={navigation} route={route} />
         <Input title={"Nueva tarea"}
           description={"Planifique sus tareas"}
           placeholder = {"Ingrese nueva tarea"}

@@ -1,6 +1,6 @@
 
 import { StyleSheet } from 'react-native';
-import { theme } from '../constants';
+import { theme } from '../../constants';
 
 export const styles = StyleSheet.create({
     header: {
@@ -29,7 +29,11 @@ export const styles = StyleSheet.create({
         minWidth: '25%',
         paddingVertical: '2%',
         textAlign: 'center',
-        fontFamily: 'poppins'
+        fontFamily: 'poppins',
+    },
+    itemSelected: {
+        textDecorationLine: 'underline',
+        fontFamily: 'poppinsBold'
     }
 
 })
