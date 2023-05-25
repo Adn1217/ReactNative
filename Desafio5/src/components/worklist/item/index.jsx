@@ -18,21 +18,25 @@ const workToRender = ({item, button1Title, button1Color, button2Title, button2Co
     }
     
     return (
-        <View style={styles.listItem}>
+        <View style={{...styles.listItem, ...styles[item.status]}}>
             <View style={styles[item.status]}>
-                <Text style={styles.itemName}>
-                {item.work}
-                </Text>
-                {/* <Text>
-                    {item.status}
-                </Text> */}
+                <View style={styles.itemNameContainer}>
+                    <Text style={styles.itemName}>
+                    {item.work}
+                    </Text>
+                    {/* <Text>
+                        {item.status}
+                    </Text> */}
+                </View>
             </View>
-            <Button 
-            title={button1Title}
-            color={button1Color}
-            style={styles.deleteButton}
-            onPress={() => onPressHandle(item)} />
-            <OptButton />
+            <View style={styles.buttonContainer}>
+                <Button 
+                title={button1Title}
+                color={button1Color}
+                style={styles.deleteButton}
+                onPress={() => onPressHandle(item)} />
+                <OptButton />
+            </View>
         </View>   
     )
 }
