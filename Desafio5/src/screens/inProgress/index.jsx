@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Button, FlatList } from 'react-native';
+import { Text, View, FlatList} from 'react-native';
 import { styles } from './styles.js';
 import { Input, Modal, Item, Header } from '../../components/index';
 import { theme } from '../../constants/index.js';
@@ -48,28 +48,28 @@ import { theme } from '../../constants/index.js';
     
     return (
       <View>
-        <Header title={"TO DO LIST"} navigation={navigation} route={route} />
-        <View style={styles.listContainer}>
-          <Text style={styles.title}>Actividades en progreso</Text>
-          <FlatList 
-            renderItem={workToRender}
-            data={workListToShow}
-            keyExtractor={(item) => item.id}
+          <Header title={"TO DO LIST"} navigation={navigation} route={route} />
+            <View style={styles.listContainer}>
+              <Text style={styles.title}>Actividades en progreso</Text>
+                  <FlatList 
+                    renderItem={workToRender}
+                    data={workListToShow}
+                    keyExtractor={(item) => item.id}
+                  />
+            </View>
+          <Modal 
+            modalVisible={modalVisible}
+            animation={"slide"}
+            transparentModal={true}
+            msg={"¿Está seguro de eliminar esta tarea?"}
+            selectedItem={selectedItem}
+            acceptButtonTitle={"Eliminar"}
+            acceptButtonColor={theme.colors.warning}
+            acceptHandler={deleteItem}
+            denyButtonTitle={"Cancelar"}
+            denyButtonColor={theme.colors.cancel}
+            denyHandler={cancelDeletion}
           />
-        </View>
-        <Modal 
-          modalVisible={modalVisible}
-          animation={"slide"}
-          transparentModal={true}
-          msg={"¿Está seguro de eliminar esta tarea?"}
-          selectedItem={selectedItem}
-          acceptButtonTitle={"Eliminar"}
-          acceptButtonColor={theme.colors.warning}
-          acceptHandler={deleteItem}
-          denyButtonTitle={"Cancelar"}
-          denyButtonColor={theme.colors.cancel}
-          denyHandler={cancelDeletion}
-        />
       </View>
     );
   }

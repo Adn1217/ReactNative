@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Text, View, Button, FlatList } from 'react-native';
+import { Text, View, Button, FlatList, TouchableWithoutFeedback, KeyboardAvoidingView, Keyboard, ScrollView } from 'react-native';
 import { styles } from './styles.js';
 import { Input, Modal, Item, Header } from '../../components/index';
 import { theme } from '../../constants/index.js';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
   const InputScreen = ({workList, setWorkList, route, navigation}) => {
@@ -65,38 +66,46 @@ import { theme } from '../../constants/index.js';
     }
     
     return (
-      <View>
-        <Header title={"TO DO LIST"} navigation={navigation} route={route} />
-        <Input title={"Nueva tarea"}
-          description={"Planifique sus tareas"}
-          placeholder = {"Ingrese nueva tarea"}
-          value={text}
-          buttonTitle={"Agregar"} 
-          inputHandler={setThisWork}
-          pressHandler={addItem}
-          />
-        <View style={styles.listContainer}>
-          {workListToShow.length > 0 ? <Text style={styles.title}>Actividades pendientes</Text> : null}
-          <FlatList 
-            renderItem={workToRender}
-            data={workListToShow}
-            keyExtractor={(item) => item.id}
+      <SafeAreaView>
+
+      <KeyboardAvoidingView behavior='height'>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View>
+          <Header title={"TO DO LIST"} navigation={navigation} route={route} />
+          <Input title={"Nueva tarea"}
+            description={"Planifique sus tareas"}
+            placeholder = {"Ingrese nueva tarea"}
+            value={text}
+            buttonTitle={"Agregar"} 
+            inputHandler={setThisWork}
+            pressHandler={addItem}
+            />
+          <View style={styles.listContainer}>
+            {workListToShow.length > 0 ? <Text style={styles.title}>Actividades pendientes</Text> : null}
+              <FlatList 
+                renderItem={workToRender}
+                data={workListToShow}
+                keyExtractor={(item) => item.id}
+              />
+          </View>
+          <Modal 
+            modalVisible={modalVisible}
+            animation={"slide"}
+            transparentModal={true}
+            msg={"¿Está seguro de eliminar esta tarea?"}
+            selectedItem={selectedItem}
+            acceptButtonTitle={"Eliminar"}
+            acceptButtonColor={theme.colors.warning}
+            acceptHandler={deleteItem}
+            denyButtonTitle={"Cancelar"}
+            denyButtonColor={theme.colors.cancel}
+            denyHandler={cancelDeletion}
           />
         </View>
-        <Modal 
-          modalVisible={modalVisible}
-          animation={"slide"}
-          transparentModal={true}
-          msg={"¿Está seguro de eliminar esta tarea?"}
-          selectedItem={selectedItem}
-          acceptButtonTitle={"Eliminar"}
-          acceptButtonColor={theme.colors.warning}
-          acceptHandler={deleteItem}
-          denyButtonTitle={"Cancelar"}
-          denyButtonColor={theme.colors.cancel}
-          denyHandler={cancelDeletion}
-        />
-      </View>
+      </TouchableWithoutFeedback>
+      
+      </KeyboardAvoidingView>
+      </SafeAreaView>
     );
   }
 
