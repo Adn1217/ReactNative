@@ -10,6 +10,16 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
     alignItems: 'center',
     fontStyle: 'italic',
+    borderRadius: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   itemNameContainer: {
     maxWidth: '75%',
@@ -23,8 +33,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'poppins',
     borderRadius: 10
   },
-  itemContainer: {
-  },
+  itemContainer: {  },
   buttonContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
