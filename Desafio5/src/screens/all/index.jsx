@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View, Button, FlatList } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './styles.js';
 import { Input, Modal, Item, Header } from '../../components/index';
 import { theme } from '../../constants/index.js';
@@ -52,6 +53,7 @@ import { theme } from '../../constants/index.js';
             renderItem={workToRender}
             data={workList}
             keyExtractor={(item) => item.id}
+            style={styles.flatList}
           />
         </View>
         <Modal 

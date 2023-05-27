@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Text, View, Button, FlatList } from 'react-native';
+import { Text, View, FlatList } from 'react-native';
 import { styles } from './styles.js';
-import { Input, Modal, Item, Header } from '../../components/index';
+import { Modal, Item, Header } from '../../components/index';
 import { theme } from '../../constants/index.js';
 
 
@@ -44,6 +44,7 @@ import { theme } from '../../constants/index.js';
             renderItem={workToRender}
             data={workListToShow}
             keyExtractor={(item) => item.id}
+            style={styles.flatList}
           />
         </View>
         <Modal 

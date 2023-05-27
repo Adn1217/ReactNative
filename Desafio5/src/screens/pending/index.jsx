@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Text, View, Button, FlatList, TouchableWithoutFeedback, KeyboardAvoidingView, Keyboard, ScrollView } from 'react-native';
+import { Text, View, FlatList, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { styles } from './styles.js';
 import { Input, Modal, Item, Header } from '../../components/index';
 import { theme, ORIENTATION } from '../../constants/index.js';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import useOrientation from '../../hooks/useOrientation.jsx';
 
   const InputScreen = ({workList, setWorkList, route, navigation}) => {
@@ -23,7 +22,8 @@ import useOrientation from '../../hooks/useOrientation.jsx';
         onPressHandle={openDeleteModal}
         button2Title={"Iniciar"}
         button2Color={"lightgreen"}
-        onPressHandle2={beginWorkItem} />)
+        onPressHandle2={beginWorkItem}
+         />)
     }
 
     function setThisWork(text) {
@@ -69,27 +69,25 @@ import useOrientation from '../../hooks/useOrientation.jsx';
     }
     
     return (
-      <SafeAreaView>
-
-      <KeyboardAvoidingView behavior='height'>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View>
-          <Header title={"TO DO LIST"} navigation={navigation} route={route} />
-          <Input title={"Nueva tarea"}
-            description={"Planifique sus tareas"}
-            placeholder = {"Ingrese nueva tarea"}
-            value={text}
-            buttonTitle={"Agregar"} 
-            inputHandler={setThisWork}
-            pressHandler={addItem}
-            />
           <View style={styles.listContainer}>
-            {workListToShow.length > 0 ? <Text style={styles.title}>Actividades pendientes</Text> : null}
-              <FlatList 
-                renderItem={workToRender}
-                data={workListToShow}
-                keyExtractor={(item) => item.id}
+            <Header title={"TO DO LIST"} navigation={navigation} route={route} />
+            <Input title={"Nueva tarea"}
+              description={"Planifique sus tareas"}
+              placeholder = {"Ingrese nueva tarea"}
+              value={text}
+              buttonTitle={"Agregar"} 
+              inputHandler={setThisWork}
+              pressHandler={addItem}
               />
+            {workListToShow.length > 0 ? <Text style={styles.title}>Actividades pendientes</Text> : null}
+            <FlatList 
+              renderItem={workToRender}
+              data={workListToShow}
+              keyExtractor={(item) => item.id}
+              style={styles.flatList}
+            />
           </View>
           <Modal 
             modalVisible={modalVisible}
@@ -106,9 +104,6 @@ import useOrientation from '../../hooks/useOrientation.jsx';
           />
         </View>
       </TouchableWithoutFeedback>
-      
-      </KeyboardAvoidingView>
-      </SafeAreaView>
     );
   }
 
