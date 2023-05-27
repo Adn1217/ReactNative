@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Text, View, FlatList} from 'react-native';
 import { styles } from './styles.js';
-import { Input, Modal, Item, Header } from '../../components/index';
-import { theme } from '../../constants/index.js';
+import { Modal, Item, Header } from '../../components/index';
+import { theme, ORIENTATION } from '../../constants/index.js';
+import { useOrientation } from '../../hooks/useOrientation.jsx';
 
 
   const InProgressScreen = ({workList, setWorkList, route, navigation}) => {
-    const [text, setText] = React.useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'InProgress')) 
+    const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'InProgress'));
 
     const workToRender = ({item}) => {
       return (<Item

@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import { Text, View, Button, FlatList, TouchableWithoutFeedback, KeyboardAvoidingView, Keyboard, ScrollView } from 'react-native';
 import { styles } from './styles.js';
 import { Input, Modal, Item, Header } from '../../components/index';
-import { theme } from '../../constants/index.js';
+import { theme, ORIENTATION } from '../../constants/index.js';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import useOrientation from '../../hooks/useOrientation.jsx';
 
   const InputScreen = ({workList, setWorkList, route, navigation}) => {
     const [text, setText] = React.useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Pending')) 
+    const orientation = useOrientation();
+
+    console.log('Orientación: ', orientation);
 
     const workToRender = ({item}) => {
       return (<Item
