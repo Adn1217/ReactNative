@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, FlatList, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { styles } from './styles.js';
 import { Input, Modal, Item, Header } from '../../components/index';
@@ -9,10 +9,8 @@ import useOrientation from '../../hooks/useOrientation.jsx';
     const [text, setText] = React.useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Pending')) 
+    const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Pending'))
     const orientation = useOrientation();
-
-    console.log('Orientación: ', orientation);
 
     const workToRender = ({item}) => {
       return (<Item
@@ -73,21 +71,27 @@ import useOrientation from '../../hooks/useOrientation.jsx';
         <View>
           <View style={styles.listContainer}>
             <Header title={"TO DO LIST"} navigation={navigation} route={route} />
-            <Input title={"Nueva tarea"}
-              description={"Planifique sus tareas"}
-              placeholder = {"Ingrese nueva tarea"}
-              value={text}
-              buttonTitle={"Agregar"} 
-              inputHandler={setThisWork}
-              pressHandler={addItem}
-              />
-            {workListToShow.length > 0 ? <Text style={styles.title}>Actividades pendientes</Text> : null}
-            <FlatList 
-              renderItem={workToRender}
-              data={workListToShow}
-              keyExtractor={(item) => item.id}
-              style={styles.flatList}
-            />
+            <View style={orientation === 'PORTRAIT' ? styles.listContainer : styles.listContainerLandscape}>
+              <View style={orientation ==='PORTRAIT' ? null : styles.inputLandscape}>
+                <Input title={"Nueva tarea"}
+                  description={"Planifique sus tareas"}
+                  placeholder = {"Ingrese nueva tarea"}
+                  value={text}
+                  buttonTitle={"Agregar"} 
+                  inputHandler={setThisWork}
+                  pressHandler={addItem}
+                  />
+              </View>
+              <View style={styles.flatListContainer}>
+                {workListToShow.length > 0 ? <Text style={styles.title}>Actividades pendientes</Text> : null}
+                <FlatList 
+                  renderItem={workToRender}
+                  data={workListToShow}
+                  keyExtractor={(item) => item.id}
+                  style={styles.flatList}
+                />
+              </View>
+            </View>
           </View>
           <Modal 
             modalVisible={modalVisible}

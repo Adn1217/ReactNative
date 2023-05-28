@@ -3,18 +3,22 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import { ORIENTATION_NUMBER } from '../constants';
 
 const useOrientation = () => {
-    const [screenOrientation, setScreenOrientation] = useState(
-        ScreenOrientation.Orientation.PORTRAIT_UP)
+    const [screenOrientation, setScreenOrientation] = useState(ScreenOrientation.Orientation.PORTRAIT_UP)
+    const [lastOrientation, setLastOrientation] = useState(screenOrientation);
 
-    useEffect(() => {
+    let initScreenOrientation = async () => {
+        const currentOrientation = await ScreenOrientation.getOrientationAsync()
+        setLastOrientation(currentOrientation);
+    }
+
+    useEffect( () => {
         const onOrientationChange = (currentOrientation) => {
             const orientationValue = currentOrientation.orientationInfo.orientation;
             setScreenOrientation(orientationValue);
+            setLastOrientation(orientationValue);
         };
-        const initScreenOrientation = async () => {
-            const currentOrientation = await ScreenOrientation.getOrientationAsync()
-        }
 
+        
         initScreenOrientation();
 
         const screenOrientationListener = ScreenOrientation.addOrientationChangeListener(onOrientationChange);
@@ -23,9 +27,10 @@ const useOrientation = () => {
             // Se ejecuta al desmontar el componente.
             ScreenOrientation.removeOrientationChangeListener(screenOrientationListener);
         }
-    }, [])
-        
-    return ORIENTATION_NUMBER[screenOrientation]
+    },[])
+    
+    console.log(`Orientación ${lastOrientation}: ${ORIENTATION_NUMBER[lastOrientation]}`);
+    return ORIENTATION_NUMBER[lastOrientation]
 }
 
 export default useOrientation;
