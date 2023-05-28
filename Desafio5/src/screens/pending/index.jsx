@@ -71,8 +71,8 @@ import useOrientation from '../../hooks/useOrientation.jsx';
         <View>
           <View style={styles.listContainer}>
             <Header title={"TO DO LIST"} navigation={navigation} route={route} />
-            <View style={orientation === 'PORTRAIT' ? styles.listContainer : styles.listContainerLandscape}>
-              <View style={orientation ==='PORTRAIT' ? null : styles.inputLandscape}>
+            <View style={orientation === ORIENTATION.PORTRAIT ? styles.listContainer : styles.listContainerLandscape}>
+              <View style={orientation === ORIENTATION.PORTRAIT ? null : styles.inputLandscape}>
                 <Input title={"Nueva tarea"}
                   description={"Planifique sus tareas"}
                   placeholder = {"Ingrese nueva tarea"}
