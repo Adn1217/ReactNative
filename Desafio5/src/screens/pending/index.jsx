@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { Text, View, Button, FlatList, TouchableWithoutFeedback, KeyboardAvoidingView, Keyboard, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, FlatList, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { styles } from './styles.js';
 import { Input, Modal, Item, Header } from '../../components/index';
-import { theme } from '../../constants/index.js';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
+import { theme, ORIENTATION } from '../../constants/index.js';
+import useOrientation from '../../hooks/useOrientation.jsx';
 
   const InputScreen = ({workList, setWorkList, route, navigation}) => {
     const [text, setText] = React.useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Pending')) 
+    const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Pending'))
+    const orientation = useOrientation();
 
     const workToRender = ({item}) => {
       return (<Item
@@ -20,7 +20,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
         onPressHandle={openDeleteModal}
         button2Title={"Iniciar"}
         button2Color={"lightgreen"}
-        onPressHandle2={beginWorkItem} />)
+        onPressHandle2={beginWorkItem}
+         />)
     }
 
     function setThisWork(text) {
@@ -66,27 +67,31 @@ import { SafeAreaView } from 'react-native-safe-area-context';
     }
     
     return (
-      <SafeAreaView>
-
-      <KeyboardAvoidingView behavior='height'>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View>
-          <Header title={"TO DO LIST"} navigation={navigation} route={route} />
-          <Input title={"Nueva tarea"}
-            description={"Planifique sus tareas"}
-            placeholder = {"Ingrese nueva tarea"}
-            value={text}
-            buttonTitle={"Agregar"} 
-            inputHandler={setThisWork}
-            pressHandler={addItem}
-            />
           <View style={styles.listContainer}>
-            {workListToShow.length > 0 ? <Text style={styles.title}>Actividades pendientes</Text> : null}
-              <FlatList 
-                renderItem={workToRender}
-                data={workListToShow}
-                keyExtractor={(item) => item.id}
-              />
+            <Header title={"TO DO LIST"} navigation={navigation} route={route} />
+            <View style={orientation === 'PORTRAIT' ? styles.listContainer : styles.listContainerLandscape}>
+              <View style={orientation ==='PORTRAIT' ? null : styles.inputLandscape}>
+                <Input title={"Nueva tarea"}
+                  description={"Planifique sus tareas"}
+                  placeholder = {"Ingrese nueva tarea"}
+                  value={text}
+                  buttonTitle={"Agregar"} 
+                  inputHandler={setThisWork}
+                  pressHandler={addItem}
+                  />
+              </View>
+              <View style={styles.flatListContainer}>
+                {workListToShow.length > 0 ? <Text style={styles.title}>Actividades pendientes</Text> : null}
+                <FlatList 
+                  renderItem={workToRender}
+                  data={workListToShow}
+                  keyExtractor={(item) => item.id}
+                  style={styles.flatList}
+                />
+              </View>
+            </View>
           </View>
           <Modal 
             modalVisible={modalVisible}
@@ -103,9 +108,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
           />
         </View>
       </TouchableWithoutFeedback>
-      
-      </KeyboardAvoidingView>
-      </SafeAreaView>
     );
   }
 

@@ -9,4 +9,8 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    flatList: {
+        marginTop: '5%',
+        maxHeight: '80%'
+    }
 })

@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop: 50
+    // marginTop: 50
   },
   loaderContainer: {
     flex: 1,
