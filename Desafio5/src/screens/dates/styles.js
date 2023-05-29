@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
     },
     datesContainer : {
         // backgroundColor: 'blue',
-        height: '63%',
+        height: '50%',
         minHeight: 380,
         width: 350,
         // alignContent: 'center'
@@ -71,7 +71,8 @@ export const styles = StyleSheet.create({
     },
     flatListPortrait: {
         flex: 1,
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-around',
+        maxHeight: '40%'
         // alignItems: 'center',
     },
     flatListContainer: {
