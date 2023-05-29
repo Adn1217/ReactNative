@@ -59,10 +59,26 @@ export const styles = StyleSheet.create({
     inputComponent: {
         padding: 5,
         // backgroundColor: 'yellow'
+        backgroundColor: 'white'
     },
     inputComponentLandscape: {
         flex: 1,
-        padding: 5,
+        padding: 20,
+        minWidth: 150,
+        marginHorizontal: 10,
+        backgroundColor: 'white'
         // backgroundColor: 'yellow'
+    },
+    flatListPortrait: {
+        flex: 1,
+        justifyContent: 'space-evenly'
+        // alignItems: 'center',
+    },
+    flatListContainer: {
+        flex: 2,
+        minWidth: 74,
+        maxWidth: '40%',
+        justifyContent: 'space-evenly'
+        // alignItems: 'center',
     }
 })

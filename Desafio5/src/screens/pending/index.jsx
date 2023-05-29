@@ -6,7 +6,7 @@ import { theme, ORIENTATION } from '../../constants/index.js';
 import useOrientation from '../../hooks/useOrientation.jsx';
 
   const InputScreen = ({workList, setWorkList, route, navigation}) => {
-    const [text, setText] = React.useState('');
+    const [text, setText] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Pending'))

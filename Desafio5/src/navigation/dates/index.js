@@ -6,14 +6,14 @@ import { DatesScreen } from "../../screens";
 const Stack = createNativeStackNavigator();
 
 const DatesNavigator = ({route, navigation}) => {
-  // const [workList, setWorkList] = useState([{"id": 271.62295550873654, "status": "Pending", "work": "Tarea 1"}]);
+  const [dateList, setDateList] = useState([{"date": "2023-05-03", "work": "Odontología", "id": 363.7922203509499, "status": "Pending"}, {"date": "2023-05-02", "work": "Mecánico", "id": 238.89834391514898, "status": "Pending"}, {"date": "2023-05-04", "id": 313.1444692038742, "status": "Pending", "work": "Almuerzo"}]);
 
   // function updateWorkList(workList){
   //   setWorkList(workList)
   // }
 
   const DatesScreenComponent = ({route, navigation}) => {
-    return (<DatesScreen route={route} navigation={navigation} />)
+    return (<DatesScreen route={route} navigation={navigation} dateList={dateList} setDateList={setDateList} />)
   }
   
   // const AllScreenComponent = ({route, navigation}) => {
