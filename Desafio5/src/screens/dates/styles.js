@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
     },
     datesContainer : {
         // backgroundColor: 'blue',
-        height: '63%',
+        height: '50%',
         minHeight: 380,
         width: 350,
         // alignContent: 'center'
@@ -59,10 +59,27 @@ export const styles = StyleSheet.create({
     inputComponent: {
         padding: 5,
         // backgroundColor: 'yellow'
+        backgroundColor: 'white'
     },
     inputComponentLandscape: {
         flex: 1,
-        padding: 5,
+        padding: 20,
+        minWidth: 150,
+        marginHorizontal: 10,
+        backgroundColor: 'white'
         // backgroundColor: 'yellow'
+    },
+    flatListPortrait: {
+        flex: 1,
+        justifyContent: 'space-around',
+        maxHeight: '40%'
+        // alignItems: 'center',
+    },
+    flatListContainer: {
+        flex: 2,
+        minWidth: 74,
+        maxWidth: '40%',
+        justifyContent: 'space-evenly'
+        // alignItems: 'center',
     }
 })
