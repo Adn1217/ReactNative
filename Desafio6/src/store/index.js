@@ -1,7 +1,8 @@
 import { createStore, combineReducers } from 'redux';
-import { workListReducer } from './reducers';
+import { workListReducer, dateListReducer } from './reducers';
 
 const rootReducer = combineReducers({
-    workList: workListReducer});
+    workList: workListReducer,
+    dateList: dateListReducer});
 
 export default createStore(rootReducer);

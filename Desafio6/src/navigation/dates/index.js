@@ -1,11 +1,13 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from 'react';
-import { theme, pendingDate } from "../../constants";
+import { theme } from "../../constants";
 import { DatesScreen } from "../../screens";
+import { useSelector } from "react-redux";
 
 const Stack = createNativeStackNavigator();
 
 const DatesNavigator = ({route, navigation}) => {
+  const pendingDate = useSelector((state) => state.dateList.items);
   const [dateList, setDateList] = useState(pendingDate);
 
   // function updateWorkList(workList){

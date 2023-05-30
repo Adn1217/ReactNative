@@ -6,8 +6,6 @@ import { styles } from '../assets/styles/styles.js';
 import { useFonts } from 'expo-font';
 import { theme } from './constants/theme.js';
 import AppNavigator from "./navigation";
-import { Provider } from 'react-redux';
-import store from './store';
 
 export default function App() {
 
@@ -27,9 +25,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Provider store={store}>
         <AppNavigator />
-      </Provider>
     </SafeAreaView>
   );
 }
