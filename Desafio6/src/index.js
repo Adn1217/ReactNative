@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../assets/styles/styles.js';
-// import { Header } from './components/index';
-// import { PendingScreen, InProgressScreen, CompletedScreen, AllScreen } from './screens/'
 import { useFonts } from 'expo-font';
 import { theme } from './constants/theme.js';
 import AppNavigator from "./navigation";
+import { Provider } from 'react-redux';
+import store from './store';
+
 export default function App() {
 
   const [loadedFonts] = useFonts({
@@ -26,7 +27,9 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Provider store={store}>
         <AppNavigator />
+      </Provider>
     </SafeAreaView>
   );
 }
