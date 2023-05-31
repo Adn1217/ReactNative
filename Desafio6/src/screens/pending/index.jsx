@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { Text, View, FlatList, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { styles } from './styles.js';
 import { Input, Modal, Item, Header } from '../../components/index';
 import { theme, ORIENTATION } from '../../constants/index.js';
 import useOrientation from '../../hooks/useOrientation.jsx';
+import { useSelector } from 'react-redux';
 
   const InputScreen = ({workList, setWorkList, route, navigation}) => {
     const [text, setText] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Pending'))
+    const workListToShow = useSelector((state) => workList.filter((item) => item.status === state.workList.selectedStatus));
+    // const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Pending'))
     const orientation = useOrientation();
+    
 
     const workToRender = ({item}) => {
       return (<Item

@@ -3,13 +3,14 @@ import { Text, View, FlatList } from 'react-native';
 import { styles } from './styles.js';
 import { Modal, Item, Header } from '../../components/index';
 import { theme } from '../../constants/index.js';
-
+import { useSelector } from 'react-redux';
 
   const CompletedScreen = ({workList, setWorkList, route, navigation}) => {
     const [text, setText] = React.useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Completed')) 
+    const workListToShow = useSelector((state) => workList.filter((item) => item.status === state.workList.selectedStatus));
+    // const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Completed')) 
 
     const workToRender = ({item}) => {
       return (<Item
