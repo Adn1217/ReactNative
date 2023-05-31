@@ -4,12 +4,13 @@ import { styles } from './styles.js';
 import { Modal, Item, Header } from '../../components/index';
 import { theme, ORIENTATION } from '../../constants/index.js';
 import useOrientation from '../../hooks/useOrientation.jsx';
-
+import { useSelector } from 'react-redux';
 
   const InProgressScreen = ({workList, setWorkList, route, navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'InProgress'));
+    const workListToShow = useSelector((state) => workList.filter((item) => item.status === state.workList.selectedStatus));
+    // const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'InProgress'));
 
     const orientation = useOrientation();
 

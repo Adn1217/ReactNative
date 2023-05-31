@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
-  const InitWorkList = useSelector((state) => state.workList.items)
+  const InitWorkList = useSelector((state) => state.workList.items);
   const [workList, setWorkList] = useState(InitWorkList);
 
   function updateWorkList(workList){
