@@ -4,16 +4,17 @@ import { styles } from './styles.js';
 import { Input, Modal, Item, Header } from '../../components/index';
 import { theme, ORIENTATION } from '../../constants/index.js';
 import useOrientation from '../../hooks/useOrientation.jsx';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectWorkListByStatus, updateWorkList } from '../../store/actions/workItems.action.js';
 
   const InputScreen = ({workList, setWorkList, route, navigation}) => {
     const [text, setText] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    const workListToShow = useSelector((state) => workList.filter((item) => item.status === state.workList.selectedStatus));
+    const workListToShow = useSelector((state) => state.workList.filteredItems);
     // const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Pending'))
     const orientation = useOrientation();
-    
+    const dispatch = useDispatch();
 
     const workToRender = ({item}) => {
       return (<Item
@@ -50,12 +51,15 @@ import { useSelector } from 'react-redux';
       newWorkList.splice(workList.findIndex((workItem) => workItem.id === item.id),1,newItem)
       console.log('Nueva lista de tareas: ', newWorkList);
       setWorkList(newWorkList);
+      dispatch(selectWorkListByStatus('Pending'));
     }
 
     function deleteItem(itemDeleted){
       let newWorkList = workList.filter((item) => item.id !== itemDeleted.id);
-      console.log('Nueva lista de tareas: ', newWorkList);
+      // console.log('Nueva lista de tareas: ', newWorkList);
       setWorkList(newWorkList);
+      dispatch(updateWorkList(newWorkList))
+      dispatch(selectWorkListByStatus('Pending'));
       setModalVisible(false);
     }
 
