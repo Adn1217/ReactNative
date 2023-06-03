@@ -4,12 +4,14 @@ import { styles } from './styles.js';
 import { Modal, Item, Header } from '../../components/index';
 import { theme, ORIENTATION } from '../../constants/index.js';
 import useOrientation from '../../hooks/useOrientation.jsx';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectWorkListByStatus, updateWorkList } from '../../store/actions/workItems.action.js';
 
   const InProgressScreen = ({workList, setWorkList, route, navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    const workListToShow = useSelector((state) => workList.filter((item) => item.status === state.workList.selectedStatus));
+    const workListToShow = useSelector((state) => state.workList.filteredItems);
+    const dispatch = useDispatch();
     // const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'InProgress'));
 
     const orientation = useOrientation();
@@ -29,7 +31,10 @@ import { useSelector } from 'react-redux';
     }
 
     function deleteItem(itemDeleted){
-      setWorkList(workList.filter((item) => item !== itemDeleted));
+      const newWorkList = workList.filter((item) => item !== itemDeleted);
+      setWorkList(newWorkList);
+      dispatch(updateWorkList(newWorkList))
+      dispatch(selectWorkListByStatus('InProgress'));
       setModalVisible(false);
     }
 
@@ -50,6 +55,7 @@ import { useSelector } from 'react-redux';
       newWorkList.splice(workList.findIndex((workItem) => workItem.id === item.id),1,newItem)
       console.log('Nueva lista de tareas: ', newWorkList);
       setWorkList(newWorkList);
+      dispatch(selectWorkListByStatus('InProgress'));
     }
     
     return (

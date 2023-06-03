@@ -1,14 +1,14 @@
 import { Text, TouchableHighlight, View } from 'react-native';
 import { styles } from './styles.js';
 import { theme } from '../../constants/theme.js';
-import { selectStatus } from '../../store/actions/workItems.action.js';
+import { selectWorkListByStatus } from '../../store/actions/workItems.action.js';
 import { useDispatch } from 'react-redux';
 
 const Header = ({title, navigation, route}) => {
     const dispatch = useDispatch();
 
     function selectScreen(category) {
-        dispatch(selectStatus(category));
+        dispatch(selectWorkListByStatus(category));
         navigation.navigate(category, {category: category, underlined: true});
     };
     

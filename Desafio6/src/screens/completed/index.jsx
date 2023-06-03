@@ -3,14 +3,16 @@ import { Text, View, FlatList } from 'react-native';
 import { styles } from './styles.js';
 import { Modal, Item, Header } from '../../components/index';
 import { theme } from '../../constants/index.js';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectWorkListByStatus, updateWorkList } from '../../store/actions/workItems.action.js';
 
   const CompletedScreen = ({workList, setWorkList, route, navigation}) => {
     const [text, setText] = React.useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    const workListToShow = useSelector((state) => workList.filter((item) => item.status === state.workList.selectedStatus));
-    // const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Completed')) 
+    const workListToShow = useSelector((state) => state.workList.filteredItems);
+    // const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Completed'))
+    const dispatch = useDispatch();
 
     const workToRender = ({item}) => {
       return (<Item
@@ -22,7 +24,10 @@ import { useSelector } from 'react-redux';
     }
 
     function deleteItem(itemDeleted){
-      setWorkList(workList.filter((item) => item !== itemDeleted));
+      const newWorkList = workList.filter((item) => item !== itemDeleted);
+      setWorkList(newWorkList);
+      dispatch(updateWorkList(newWorkList))
+      dispatch(selectWorkListByStatus('Completed'));
       setModalVisible(false);
     }
 
