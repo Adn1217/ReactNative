@@ -1,4 +1,5 @@
 import React, {  useState } from 'react';
+import { REACT_APP_FIREBASE_REALTIME_DB_URL } from '@env';
 import { Text, View, FlatList, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { styles } from './styles.js';
 import { Input, Modal, Item, Header } from '../../components/index';
@@ -6,8 +7,6 @@ import { theme, ORIENTATION } from '../../constants/index.js';
 import useOrientation from '../../hooks/useOrientation.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectWorkListByStatus, updateWorkList } from '../../store/actions/workItems.action.js';
-import { REACT_APP_FIREBASE_REALTIME_DB_URL } from '@env';
-// import { REACT_APP_FIREBASE_REALTIME_DB_URL } from '@env';
 
   const InputScreen = ({workList, setWorkList, route, navigation}) => {
     const [text, setText] = useState('');

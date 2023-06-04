@@ -1,5 +1,5 @@
 {
-    plugins: [
+    "plugins": [
       ["module:react-native-dotenv",
     {
       "envName": "APP_ENV",
