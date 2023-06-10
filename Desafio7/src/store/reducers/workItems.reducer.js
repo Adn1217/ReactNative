@@ -31,7 +31,6 @@ const workListReducer = (state = initialState, action ) => {
 
         case UPDATE_WORKLIST:
             const newWorkList = action.newWorkList;
-            console.log('HOLAAAAAAAAAAAAA')
             return {...state, ...{items: newWorkList}};
             
     default:
