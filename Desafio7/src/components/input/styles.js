@@ -1,16 +1,15 @@
-
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   title: {
-    fontSize: 25
+    fontSize: 25,
   },
   description: {
-    marginTop: 10
+    marginTop: 10,
   },
   inputs: {
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center",
   },
   textInput: {
     borderWidth: 1,
@@ -18,7 +17,13 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     paddingLeft: 5,
-    textAlign: 'center'
+    textAlign: "center",
   },
-
-})
+  button: {
+    paddingVertical: 5,
+  },
+  buttons: {
+    paddingVertical: 5,
+    justifyContent: "space-between",
+  },
+});
