@@ -11,7 +11,7 @@ import {
 import { Calendar } from "react-native-calendars";
 
 import { styles } from "./styles.js";
-import { Input, Header, Item, Modal } from "../../components/index";
+import { Input, Header, Item, Modal, LocationSelector } from "../../components/index";
 import { theme, ORIENTATION } from "../../constants/index.js";
 import useOrientation from "../../hooks/useOrientation.jsx";
 
@@ -21,11 +21,12 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
   const [text, setText] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
   const [inputVisible, setInputVisible] = useState(false);
+  const [locationVisible, setLocationVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [dateListToShow, setDateListToShow] = useState(
     dateList.filter((item) => item.status === "Pending")
   );
-  const [locationList, setLocationList] = useState([]);
+  const [dateLocation, setDateLocation] = useState({});
 
   const dateListMarked = {};
   dateListToShow.forEach((date) => (dateListMarked[date.date] = { marked: true }));
@@ -42,8 +43,11 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
     setText(text);
   }
 
-  function addThisLocation(location) {
-    setLocationList(locationList.push(location));
+  function openLocationInput() {
+    setLocationVisible(true);
+  }
+  function setCurrentLocation(location) {
+    setDateLocation(location);
   }
 
   function addDate() {
@@ -55,6 +59,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
           work: text,
           date: selected,
           status: "Pending",
+          location: dateLocation,
         },
       ];
       console.log("Nueva lista de citas: ", newList);
@@ -78,6 +83,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
   function cancelDeletion() {
     setSelectedItem(null);
     setModalVisible(false);
+    setLocationVisible(false);
   }
 
   const dateToRender = ({ item }) => {
@@ -107,7 +113,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
           pressHandler={addDate}
           button2Title="Ubicación"
           button2Color="blue"
-          onPressHandler2={addThisLocation}
+          onPressHandler2={openLocationInput}
         />
       );
     } else {
@@ -139,6 +145,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
     setSelected("");
     setText("");
     setInputVisible(false);
+    setLocationVisible(false);
   }
   return (
     <TouchableWithoutFeedback
@@ -202,10 +209,14 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
                 buttonTitle="Agregar"
                 inputHandler={setThisDate}
                 pressHandler={addDate}
+                button2Title="Ubicación"
+                button2Color="blue"
+                onPressHandler2={openLocationInput}
               />
             </View>
           ) : null}
-          {dateListToShow.length > 0 ? (
+          {locationVisible ? <LocationSelector onLocation={setCurrentLocation} /> : null}
+          {!inputVisible && dateListToShow.length > 0 ? (
             <View
               style={
                 orientation === ORIENTATION.PORTRAIT

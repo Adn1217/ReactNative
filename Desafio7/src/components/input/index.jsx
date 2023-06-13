@@ -15,15 +15,17 @@ const Input = ({
   button2Color,
   onPressHandler2,
 }) => {
-  const OptButton = () => {
+  const OptButton = ({ style = styles.button }) => {
     if (button2Title) {
       return (
-        <Button
-          title={button2Title}
-          color={button2Color}
-          style={styles.deleteButton}
-          onPress={() => onPressHandler2()}
-        />
+        <View style={style}>
+          <Button
+            title={button2Title}
+            color={button2Color}
+            onPress={() => onPressHandler2()}
+            disabled={value === ""}
+          />
+        </View>
       );
     } else {
       return null;
@@ -39,8 +41,10 @@ const Input = ({
         onChangeText={(text) => inputHandler(text)}
         value={value}
       />
-      <Button title={buttonTitle} onPress={() => pressHandler()} disabled={value === ""} />
-      <OptButton />
+      <View style={styles.buttons}>
+        <Button title={buttonTitle} onPress={() => pressHandler()} disabled={value === ""} />
+        <OptButton />
+      </View>
     </View>
   );
 };
