@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "clase1",
-    "slug": "clase1",
+    "name": "toDoApp",
+    "slug": "toDoApp",
     "version": "1.0.0",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -29,10 +29,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.adn1217.toDoApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1eff195c-21dc-436f-8315-c429cd6f4934"
+      }
     }
   }
 }

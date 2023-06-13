@@ -25,6 +25,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
   const [dateListToShow, setDateListToShow] = useState(
     dateList.filter((item) => item.status === "Pending")
   );
+  const [locationList, setLocationList] = useState([]);
 
   const dateListMarked = {};
   dateListToShow.forEach((date) => (dateListMarked[date.date] = { marked: true }));
@@ -39,6 +40,10 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
 
   function setThisDate(text) {
     setText(text);
+  }
+
+  function addThisLocation(location) {
+    setLocationList(locationList.push(location));
   }
 
   function addDate() {
@@ -100,6 +105,9 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
           buttonTitle="Agregar"
           inputHandler={setThisDate}
           pressHandler={addDate}
+          button2Title="Ubicación"
+          button2Color="blue"
+          onPressHandler2={addThisLocation}
         />
       );
     } else {
