@@ -64,7 +64,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
         },
       ];
       console.log("Nueva lista de citas: ", newList);
-      const insertedDate = await insertDate(text, selected, dateLocation);
+      const insertedDate = await insertDate(text, selected, "Pending", dateLocation);
       console.log("Id de nueva cita en BD: ", insertedDate.insertId);
       const dates = await selectDates();
       console.log(

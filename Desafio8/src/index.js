@@ -4,9 +4,18 @@ import { ActivityIndicator, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { theme } from "./constants/theme.js";
-import { init } from "./db/index.js";
+import { init, reInit } from "./db/index.js";
 import AppNavigator from "./navigation";
 import { styles } from "../assets/styles/styles.js";
+
+reInit()
+  .then(() => {
+    console.log("Base de datos reiniciada");
+  })
+  .catch((err) => {
+    console.log("Se ha presentado error al reiniciar base de datos");
+    console.log(err);
+  });
 
 init()
   .then(() => {
