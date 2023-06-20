@@ -1,12 +1,12 @@
 import * as SQLite from "expo-sqlite";
 
-const db = SQLite.openDatabase("locations.db");
+const db = SQLite.openDatabase("dates.db");
 
 export const init = () => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        `CREATE TABLE IF NOT EXISTS locations (id INTEGER PRIMARY KEY NOT NULL, title TEXT NOT NULL, coords TEXT NOT NULL)`,
+        `CREATE TABLE IF NOT EXISTS dates (id INTEGER PRIMARY KEY NOT NULL, title TEXT NOT NULL, date TEXT NOT NULL, coords TEXT NOT NULL)`,
         [],
         () => {
           resolve();
@@ -21,12 +21,12 @@ export const init = () => {
   return promise;
 };
 
-export const insertLocation = (title, coords) => {
+export const insertDate = (title, date, coords) => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        `INSERT INTO locations (title, coords) VALUES (?,?)`,
-        [title, JSON.stringify(coords)],
+        `INSERT INTO dates (title, date, coords) VALUES (?,?,?)`,
+        [title, date, JSON.stringify(coords)],
         (_, result) => {
           resolve(result);
         },
@@ -40,11 +40,11 @@ export const insertLocation = (title, coords) => {
   return promise;
 };
 
-export const selectLocations = () => {
+export const selectDates = () => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        `SELECT * FROM locations`,
+        `SELECT * FROM dates`,
         [],
         (_, result) => {
           resolve(result);

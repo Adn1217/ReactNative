@@ -13,6 +13,7 @@ import { Calendar } from "react-native-calendars";
 import { styles } from "./styles.js";
 import { Input, Header, Item, Modal, LocationSelector } from "../../components/index";
 import { theme, ORIENTATION } from "../../constants/index.js";
+import { insertDate, selectDates } from "../../db/index.js";
 import useOrientation from "../../hooks/useOrientation.jsx";
 
 const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
@@ -50,7 +51,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
     setDateLocation(location);
   }
 
-  function addDate() {
+  async function addDate() {
     if (text !== "") {
       const newList = [
         ...dateList,
@@ -63,6 +64,13 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
         },
       ];
       console.log("Nueva lista de citas: ", newList);
+      const insertedDate = await insertDate(text, selected, dateLocation);
+      console.log("Id de nueva cita en BD: ", insertedDate.insertId);
+      const dates = await selectDates();
+      console.log(
+        `Nueva lista de citas (${dates.rows.length}) en BD: ${JSON.stringify(dates.rows._array)}`
+      );
+
       setDateList(newList);
       setText("");
     }
