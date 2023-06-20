@@ -1,12 +1,13 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+
 import { theme } from "../../constants";
 import { DatesScreen } from "../../screens";
-import { useSelector } from "react-redux";
 
 const Stack = createNativeStackNavigator();
 
-const DatesNavigator = ({route, navigation}) => {
+const DatesNavigator = ({ route, navigation }) => {
   const pendingDate = useSelector((state) => state.dateList.items);
   const [dateList, setDateList] = useState(pendingDate);
 
@@ -14,10 +15,17 @@ const DatesNavigator = ({route, navigation}) => {
   //   setWorkList(workList)
   // }
 
-  const DatesScreenComponent = ({route, navigation}) => {
-    return (<DatesScreen route={route} navigation={navigation} dateList={dateList} setDateList={setDateList} />)
-  }
-  
+  const DatesScreenComponent = ({ route, navigation }) => {
+    return (
+      <DatesScreen
+        route={route}
+        navigation={navigation}
+        dateList={dateList}
+        setDateList={setDateList}
+      />
+    );
+  };
+
   // const AllScreenComponent = ({route, navigation}) => {
   //   return (<AllScreen workList={workList} setWorkList={updateWorkList} route={route} navigation={navigation} />)
   // }
@@ -34,7 +42,11 @@ const DatesNavigator = ({route, navigation}) => {
           fontFamily: "poppinsBold",
         },
       }}>
-      <Stack.Screen name="Dates" component={DatesScreenComponent} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="Dates"
+        component={DatesScreenComponent}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };

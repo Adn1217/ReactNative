@@ -31,7 +31,7 @@ const workToRender = ({
     <View style={{ ...styles.listItem, ...styles[item.status] }}>
       <View style={styles[item.status]}>
         <View style={styles.itemNameContainer}>
-          <Text style={styles.itemName}>{item.work}</Text>
+          <Text style={styles.itemName}>{item.work || item.date}</Text>
           {/* <Text>
                         {item.status}
                     </Text> */}
