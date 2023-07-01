@@ -59,6 +59,25 @@ export const insertDate = (title, date, status, coords) => {
   return promise;
 };
 
+export const deleteDate = (id) => {
+  const promise = new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `DELETE FROM dates WHERE id = ?`,
+        [id],
+        (_, result) => {
+          resolve(result);
+        },
+        (_, err) => {
+          reject(err);
+        }
+      );
+    });
+  });
+
+  return promise;
+};
+
 export const selectDates = () => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {

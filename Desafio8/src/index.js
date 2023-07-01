@@ -8,14 +8,14 @@ import { init, reInit } from "./db/index.js";
 import AppNavigator from "./navigation";
 import { styles } from "../assets/styles/styles.js";
 
-reInit()
-  .then(() => {
-    console.log("Base de datos reiniciada");
-  })
-  .catch((err) => {
-    console.log("Se ha presentado error al reiniciar base de datos");
-    console.log(err);
-  });
+// reInit()
+//   .then(() => {
+//     console.log("Base de datos reiniciada");
+//   })
+//   .catch((err) => {
+//     console.log("Se ha presentado error al reiniciar base de datos");
+//     console.log(err);
+//   });
 
 init()
   .then(() => {
