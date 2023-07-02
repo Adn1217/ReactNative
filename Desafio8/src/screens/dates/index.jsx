@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { styles } from "./styles.js";
 import { Input, Header, Item, Modal, LocationSelector } from "../../components/index";
 import { theme, ORIENTATION } from "../../constants/index.js";
-import { selectDates, insertDate, deleteDate } from "../../db/index.js";
+import { selectDates, insertDate, deleteDate } from "../../db/sqlite/index.js";
 import useOrientation from "../../hooks/useOrientation.jsx";
 import { selectDatesAction } from "../../store/actions/dateItems.action.js";
 

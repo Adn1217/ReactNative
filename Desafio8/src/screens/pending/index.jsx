@@ -1,9 +1,3 @@
-import {
-  REACT_APP_FIREBASE_REALTIME_DB_URL,
-  REACT_APP_FIREBASE_API_KEY,
-  REACT_APP_FIREBASE_AUTH_SIGN_IN_URL,
-  REACT_APP_FIREBASE_AUTH_SIGN_UP_URL,
-} from "@env";
 import React, { useState } from "react";
 import { Text, View, FlatList, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,9 +16,7 @@ const InputScreen = ({ workList, setWorkList, route, navigation }) => {
   // const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Pending'))
   const orientation = useOrientation();
   const dispatch = useDispatch();
-  console.log(
-    `Variables de entorno: ${REACT_APP_FIREBASE_REALTIME_DB_URL} -- ${REACT_APP_FIREBASE_API_KEY} -- ${REACT_APP_FIREBASE_AUTH_SIGN_IN_URL} -- ${REACT_APP_FIREBASE_AUTH_SIGN_UP_URL}`
-  );
+
   const workToRender = ({ item }) => {
     return (
       <Item

@@ -1,4 +1,4 @@
-import { selectDates } from "../../db";
+import { selectDates } from "../../db/sqlite";
 import { dateListTypes } from "../types/dateList.types";
 
 const { GET_DATELIST } = dateListTypes;
