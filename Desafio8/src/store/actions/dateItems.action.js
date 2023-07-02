@@ -14,7 +14,7 @@ export const selectDatesAction = () => {
   return async (dispatch) => {
     try {
       const dates = await selectDates();
-      const dbDateList = dates.rows.array;
+      const dbDateList = await dates.rows.array;
       console.log("Citas recibidas: ", dbDateList);
       dispatch({
         type: UPDATE_DATELIST,
@@ -33,7 +33,7 @@ export const insertDateToFB = (localId, text, selected, status, dateLocation) =>
       const insertedDateFB = await selectDateFB(insertedDateIdFB.name);
       console.log("Cita ingresada en FB: ", insertedDateFB);
       const fbDates = await selectDatesFB();
-      console.log("Citas en FB: ", fbDates);
+      // console.log("Citas en FB: ", fbDates);
       dispatch({
         type: UPDATE_DATELIST,
         dbDateList: fbDates,
@@ -51,7 +51,7 @@ export const deleteDateToFB = (localId) => {
       console.log("Cita encontrada en FB: ", dateToDeleteFB);
       // const dates = Object.keys(data).map((key) => ({ ...data[key], id: key }));
       const dateToDeleteName = Object.keys(dateToDeleteFB)[0];
-      console.log("Name : ", dateToDeleteName);
+      // console.log("Name : ", dateToDeleteName);
       const deletedDateFB = await deleteDateFB(dateToDeleteName);
       const fbDates = await selectDatesFB();
       console.log("Citas en FB: ", fbDates);

@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 
 const DatesNavigator = ({ route, navigation }) => {
   const pendingDates = useSelector((state) => state.dateList.items);
-  const [dateList, setDateList] = useState(pendingDates);
+  const [dateList, setDateList] = useState(pendingDates || []);
   console.log("Lista de citas pendientes: ", dateList);
   const dispatch = useDispatch();
 

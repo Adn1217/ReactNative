@@ -86,7 +86,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
 
   async function deleteItem(itemToDelete) {
     const newDateList = dateList.filter((item) => item.id !== itemToDelete.id);
-    console.log("Elemento a eliminar: ", itemToDelete);
+    // console.log("Elemento a eliminar: ", itemToDelete);
     try {
       const deletedDBDate = await deleteDate(itemToDelete.id);
       console.log("Deleted date", deletedDBDate);

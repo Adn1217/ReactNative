@@ -13,7 +13,6 @@ const initialState = {
 const dateListReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_DATELIST:
-      console.log(action.dbDateList);
       return { ...state, items: action.dbDateList };
     default:
       return state;
