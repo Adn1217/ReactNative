@@ -2,7 +2,7 @@
 import { dateListTypes } from "../types/dateList.types";
 
 const InitialDBDateList = [];
-const { GET_DATELIST } = dateListTypes;
+const { UPDATE_DATELIST } = dateListTypes;
 
 const initialState = {
   items: InitialDBDateList,
@@ -12,7 +12,8 @@ const initialState = {
 
 const dateListReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_DATELIST:
+    case UPDATE_DATELIST:
+      console.log(action.dbDateList);
       return { ...state, items: action.dbDateList };
     default:
       return state;

@@ -16,7 +16,7 @@ import { Input, Header, Item, Modal, LocationSelector } from "../../components/i
 import { theme, ORIENTATION } from "../../constants/index.js";
 import { selectDates, insertDate, deleteDate } from "../../db/sqlite/index.js";
 import useOrientation from "../../hooks/useOrientation.jsx";
-import { selectDatesAction } from "../../store/actions/dateItems.action.js";
+import { deleteDateToFB, insertDateToFB } from "../../store/actions/dateItems.action.js";
 
 const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
   const [selected, setSelected] = useState("");
@@ -27,7 +27,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
   const [locationVisible, setLocationVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   // const pendingDates = useSelector((state) => state.dateList.items);
-  // setDateList(pendingDates);
+  // setDateList(pendingDates || []);
   const [dateListToShow, setDateListToShow] = useState(
     dateList.filter((item) => item.status === "Pending")
   );
@@ -37,7 +37,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
   dateListToShow.forEach((date) => (dateListMarked[date.date] = { marked: true }));
   console.log("Fechas reservadas: ", dateListMarked);
   console.log("Citas a mostrar: ", dateListToShow);
-  console.log("Citas: ", dateList);
+  // console.log("Citas: ", dateList);
 
   function setSelection(day) {
     setInputVisible(true);
@@ -68,8 +68,12 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
         const insertedDate = await insertDate(text, selected, "Pending", dateLocation);
         console.log("Id de nueva cita en BD: ", insertedDate.insertId);
         newDate.id = insertedDate.insertId;
+        // const insertedDateFB = await insertDateFB(text, selected, "Pending", dateLocation);
+        const dbDatesListFB = dispatch(
+          insertDateToFB(newDate.id, text, selected, "Pending", dateLocation)
+        );
         // const newList = [...dateList, newDate];
-        // console.log("Nueva lista de citas: ", datesList);
+        // console.log("Nueva lista de citas en FB: ", dbDatesListFB);
         const dbDatesList = await selectDates();
         console.log("Nueva lista de citas: ", dbDatesList.rows._array);
         setDateList(dbDatesList.rows._array);
@@ -87,6 +91,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
       const deletedDBDate = await deleteDate(itemToDelete.id);
       console.log("Deleted date", deletedDBDate);
       console.log("Nueva lista de citas: ", newDateList);
+      dispatch(deleteDateToFB(itemToDelete.id));
       setDateList(newDateList);
       setModalVisible(false);
     } catch (err) {

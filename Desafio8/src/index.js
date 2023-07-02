@@ -4,7 +4,7 @@ import { ActivityIndicator, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { theme } from "./constants/theme.js";
-import { init, reInit } from "./db/index.js";
+import { init, reInit } from "./db/sqlite";
 import AppNavigator from "./navigation";
 import { styles } from "../assets/styles/styles.js";
 
