@@ -89,8 +89,8 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
     // console.log("Elemento a eliminar: ", itemToDelete);
     try {
       const deletedDBDate = await deleteDate(itemToDelete.id);
-      console.log("Deleted date", deletedDBDate);
-      console.log("Nueva lista de citas: ", newDateList);
+      console.log("Deleted DB date", deletedDBDate);
+      console.log("Nueva lista de citas en BD: ", newDateList);
       dispatch(deleteDateToFB(itemToDelete.id));
       setDateList(newDateList);
       setModalVisible(false);

@@ -1,9 +1,10 @@
-import { pendingWork as InitialWorkList } from "../../constants";
+// import { pendingWork as InitialWorkList } from "../../constants";
 import { workListTypes } from "../types/workList.types";
 
 const { SELECT_WORKLIST_ITEM, SELECT_WORKLIST_BY_STATUS, SELECT_STATUS, UPDATE_WORKLIST } =
   workListTypes;
 
+const InitialWorkList = [];
 const initialState = {
   items: InitialWorkList,
   selectedStatus: "Pending",
@@ -25,9 +26,8 @@ const workListReducer = (state = initialState, action) => {
 
     case SELECT_WORKLIST_BY_STATUS:
       // eslint-disable-next-line no-case-declarations
-      const workListByStatus = state.items.filter(
-        (workItem) => workItem.status === action.workListStatus
-      );
+      const workListByStatus =
+        state.items?.filter((workItem) => workItem.status === action.workListStatus) || [];
       return { ...state, ...{ filteredItems: workListByStatus, status: action.workListStatus } };
 
     case SELECT_STATUS:

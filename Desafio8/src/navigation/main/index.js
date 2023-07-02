@@ -1,34 +1,69 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { theme } from "../../constants";
 import { PendingScreen, CompletedScreen, AllScreen, InProgressScreen } from "../../screens";
-import { useSelector } from 'react-redux';
+import { selectWorksAction } from "../../store/actions/workItems.action";
 
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
   const InitWorkList = useSelector((state) => state.workList.items);
   const [workList, setWorkList] = useState(InitWorkList);
+  const dispatch = useDispatch();
 
-  function updateWorkList(workList){
-    setWorkList(workList)
-  }
+  useEffect(() => {
+    dispatch(selectWorksAction());
+  }, []);
 
-  const PendingScreenComponent = ({route, navigation}) => {
-    return (<PendingScreen workList={workList} setWorkList={updateWorkList} route={route} navigation={navigation} />)
-  }
-  
-  const InProgressScreenComponent = ({route, navigation}) => {
-    return (<InProgressScreen workList={workList} setWorkList={updateWorkList} route={route} navigation={navigation}  />)
-  }
-  
-  const CompletedScreenComponent = ({route, navigation}) => {
-    return (<CompletedScreen workList={workList} setWorkList={updateWorkList} route={route} navigation={navigation} />)
+  function updateWorkList(workList) {
+    setWorkList(workList);
   }
 
-  const AllScreenComponent = ({route, navigation}) => {
-    return (<AllScreen workList={workList} setWorkList={updateWorkList} route={route} navigation={navigation} />)
-  }
+  const PendingScreenComponent = ({ route, navigation }) => {
+    return (
+      <PendingScreen
+        workList={workList}
+        setWorkList={updateWorkList}
+        route={route}
+        navigation={navigation}
+      />
+    );
+  };
+
+  const InProgressScreenComponent = ({ route, navigation }) => {
+    return (
+      <InProgressScreen
+        workList={workList}
+        setWorkList={updateWorkList}
+        route={route}
+        navigation={navigation}
+      />
+    );
+  };
+
+  const CompletedScreenComponent = ({ route, navigation }) => {
+    return (
+      <CompletedScreen
+        workList={workList}
+        setWorkList={updateWorkList}
+        route={route}
+        navigation={navigation}
+      />
+    );
+  };
+
+  const AllScreenComponent = ({ route, navigation }) => {
+    return (
+      <AllScreen
+        workList={workList}
+        setWorkList={updateWorkList}
+        route={route}
+        navigation={navigation}
+      />
+    );
+  };
 
   return (
     <Stack.Navigator
@@ -42,12 +77,22 @@ const MainNavigator = () => {
           fontFamily: "poppinsBold",
         },
       }}>
-      <Stack.Screen name="Pending" component={PendingScreenComponent} options={{ headerShown: false }} />
-      <Stack.Screen name="InProgress" component={InProgressScreenComponent} options={{ headerShown: false }} />
-      <Stack.Screen name="Completed" component={CompletedScreenComponent} options={{headerShown: false}}
+      <Stack.Screen
+        name="Pending"
+        component={PendingScreenComponent}
+        options={{ headerShown: false }}
       />
-      <Stack.Screen name="All" component={AllScreenComponent} options={{headerShown: false}}
+      <Stack.Screen
+        name="InProgress"
+        component={InProgressScreenComponent}
+        options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="Completed"
+        component={CompletedScreenComponent}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="All" component={AllScreenComponent} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 };
