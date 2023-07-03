@@ -2,27 +2,47 @@ import { useFonts } from "expo-font";
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Provider } from "react-redux";
 
 import { theme } from "./constants/theme.js";
-import { init, reInit } from "./db/index.js";
+import { init, init2, reInit, reInit2 } from "./db/sqlite";
 import AppNavigator from "./navigation";
+import store from "./store/index.js";
 import { styles } from "../assets/styles/styles.js";
 
-reInit()
-  .then(() => {
-    console.log("Base de datos reiniciada");
-  })
-  .catch((err) => {
-    console.log("Se ha presentado error al reiniciar base de datos");
-    console.log(err);
-  });
+// reInit()
+//   .then(() => {
+//     console.log("Base de datos Dates reiniciada");
+//   })
+//   .catch((err) => {
+//     console.log("Se ha presentado error al reiniciar base de datos Dates");
+//     console.log(err);
+//   });
+
+// reInit2()
+//   .then(() => {
+//     console.log("Base de datos Works reiniciada");
+//   })
+//   .catch((err) => {
+//     console.log("Se ha presentado error al reiniciar base de datos Works");
+//     console.log(err);
+//   });
 
 init()
   .then(() => {
-    console.log("Base de datos inicializada");
+    console.log("Base de datos Dates inicializada");
   })
   .catch((err) => {
-    console.log("Se ha presentado error al inicializar base de datos");
+    console.log("Se ha presentado error al inicializar base de datos Dates");
+    console.log(err);
+  });
+
+init2()
+  .then(() => {
+    console.log("Base de datos Works inicializada");
+  })
+  .catch((err) => {
+    console.log("Se ha presentado error al inicializar base de datos Works");
     console.log(err);
   });
 
@@ -46,7 +66,9 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppNavigator />
+      <Provider store={store}>
+        <AppNavigator />
+      </Provider>
     </SafeAreaView>
   );
 }

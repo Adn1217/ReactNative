@@ -1,30 +1,27 @@
-import {
-  REACT_APP_FIREBASE_REALTIME_DB_URL,
-  REACT_APP_FIREBASE_API_KEY,
-  REACT_APP_FIREBASE_AUTH_SIGN_IN_URL,
-  REACT_APP_FIREBASE_AUTH_SIGN_UP_URL,
-} from "@env";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, FlatList, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
 import { styles } from "./styles.js";
 import { Input, Modal, Item, Header } from "../../components/index";
 import { theme, ORIENTATION } from "../../constants/index.js";
+import { deleteWork, insertWork, selectWorks, updateWork } from "../../db/sqlite/index.js";
 import useOrientation from "../../hooks/useOrientation.jsx";
-import { selectWorkListByStatus, updateWorkList } from "../../store/actions/workItems.action.js";
+import { selectWorkListByStatus, selectWorksAction } from "../../store/actions/workItems.action.js";
 
 const InputScreen = ({ workList, setWorkList, route, navigation }) => {
   const [text, setText] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const workListToShow = useSelector((state) => state.workList.filteredItems);
-  // const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Pending'))
   const orientation = useOrientation();
   const dispatch = useDispatch();
-  console.log(
-    `Variables de entorno: ${REACT_APP_FIREBASE_REALTIME_DB_URL} -- ${REACT_APP_FIREBASE_API_KEY} -- ${REACT_APP_FIREBASE_AUTH_SIGN_IN_URL} -- ${REACT_APP_FIREBASE_AUTH_SIGN_UP_URL}`
-  );
+  console.log("Pendientes a mostrar: ", workListToShow);
+
+  useEffect(() => {
+    dispatch(selectWorkListByStatus("Pending"));
+  }, []);
+
   const workToRender = ({ item }) => {
     return (
       <Item
@@ -43,23 +40,30 @@ const InputScreen = ({ workList, setWorkList, route, navigation }) => {
     setText(text);
   }
 
-  function addItem() {
-    if (text !== "") {
-      const newList = [
-        ...workList,
-        {
-          id: Math.random() * 1000,
+  async function addItem() {
+    try {
+      if (text !== "") {
+        const newWork = {
+          // id: Math.random() * 1000,
           work: text,
           status: "Pending",
-        },
-      ];
-      console.log("Nueva lista de tareas: ", newList);
-      setWorkList(newList);
-      setText("");
+        };
+        // const newList = [...workList, newWork];
+        // newWork.id = insertedWork.insertId;
+        const insertedWork = await insertWork(text, "Pending");
+        console.log("Id de nueva cita en BD: ", insertedWork.insertId);
+        const newList = await selectWorks();
+        console.log("Nueva lista de tareas: ", newList.rows._array);
+        const dbWorkList = dispatch(selectWorksAction());
+        // setWorkList(newList.rows._array);
+        setText("");
+      }
+    } catch (err) {
+      console.error("Se ha presentado un error al intentar guardar la tarea en BD: ", err);
     }
   }
 
-  function beginWorkItem(item) {
+  async function beginWorkItem(item) {
     item.status = "InProgress";
     const newItem = item;
     const newWorkList = [...workList];
@@ -68,18 +72,32 @@ const InputScreen = ({ workList, setWorkList, route, navigation }) => {
       1,
       newItem
     );
-    console.log("Nueva lista de tareas: ", newWorkList);
-    setWorkList(newWorkList);
-    dispatch(selectWorkListByStatus("Pending"));
+    try {
+      const updatedDBWork = await updateWork(item.id, "InProgress");
+      console.log(updatedDBWork);
+      dispatch(selectWorksAction());
+      console.log("Nueva lista de tareas: ", newWorkList);
+      setWorkList(newWorkList);
+      // dispatch(selectWorkListByStatus("Pending"));
+    } catch (err) {
+      console.error("Se ha presentado error al intentar actualizar tarea en BD: ", err);
+    }
   }
 
-  function deleteItem(itemDeleted) {
-    const newWorkList = workList.filter((item) => item.id !== itemDeleted.id);
-    // console.log('Nueva lista de tareas: ', newWorkList);
-    setWorkList(newWorkList);
-    dispatch(updateWorkList(newWorkList));
-    dispatch(selectWorkListByStatus("Pending"));
-    setModalVisible(false);
+  async function deleteItem(itemToDelete) {
+    // const newWorkList = workList.filter((item) => item.id !== itemToDelete.id);
+    try {
+      const deletedDBWork = await deleteWork(itemToDelete.id);
+      console.log("Deleted DB work", deletedDBWork);
+      // console.log("Nueva lista de tareas en BD: ", newWorkList);
+      // setWorkList(newWorkList);
+      // dispatch(updateWorkList(newWorkList));
+      dispatch(selectWorksAction());
+      dispatch(selectWorkListByStatus("Pending"));
+      setModalVisible(false);
+    } catch (err) {
+      console.error("Se ha presentado un error al intentar eliminar la tarea en BD: ", err);
+    }
   }
 
   function openDeleteModal(selectedItem) {

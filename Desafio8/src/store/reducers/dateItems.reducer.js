@@ -1,15 +1,9 @@
-import { pendingDate as InitialDateList } from "../../constants";
-import { selectDates } from "../../db";
+// import { pendingDate as InitialDateList } from "../../constants";
+import { dateListTypes } from "../types/dateList.types";
 
-let InitialDBDateList = [];
+const InitialDBDateList = [];
+const { UPDATE_DATELIST } = dateListTypes;
 
-async function selectDBDates() {
-  const dates = await selectDates();
-  InitialDBDateList = dates.rows.array;
-  return dates.rows._array;
-}
-
-selectDBDates();
 const initialState = {
   items: InitialDBDateList,
   state: null,
@@ -17,7 +11,12 @@ const initialState = {
 };
 
 const dateListReducer = (state = initialState, action) => {
-  return state;
+  switch (action.type) {
+    case UPDATE_DATELIST:
+      return { ...state, items: action.dbDateList };
+    default:
+      return state;
+  }
 };
 
 export default dateListReducer;

@@ -1,19 +1,22 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import { theme } from "../../constants";
 import { DatesScreen } from "../../screens";
+import { selectDatesAction } from "../../store/actions/dateItems.action";
 
 const Stack = createNativeStackNavigator();
 
 const DatesNavigator = ({ route, navigation }) => {
-  const pendingDate = useSelector((state) => state.dateList.items);
-  const [dateList, setDateList] = useState(pendingDate);
+  const pendingDates = useSelector((state) => state.dateList.items);
+  const [dateList, setDateList] = useState(pendingDates || []);
+  console.log("Lista de citas pendientes: ", dateList);
+  const dispatch = useDispatch();
 
-  // function updateWorkList(workList){
-  //   setWorkList(workList)
-  // }
+  useEffect(() => {
+    dispatch(selectDatesAction());
+  }, []);
 
   const DatesScreenComponent = ({ route, navigation }) => {
     return (
