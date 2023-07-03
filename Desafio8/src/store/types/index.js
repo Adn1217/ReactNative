@@ -1,2 +1,3 @@
-export * as workListTypes from "./workList.types";
-export * as dateListTypes from "./dateList.types";
+export * from "./workList.types";
+export * from "./dateList.types";
+export * from "./auth.types";

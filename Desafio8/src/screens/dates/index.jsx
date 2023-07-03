@@ -83,7 +83,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
         setDateList(dbDatesList.rows._array);
         setText("");
       } catch (err) {
-        console.err("Se ha presentador error intentado eliminar una cita: ", err);
+        console.error("Se ha presentador error intentado eliminar una cita: ", err);
       }
     }
   }
@@ -99,7 +99,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
       setDateList(newDateList);
       setModalVisible(false);
     } catch (err) {
-      console.err("Se ha presentado error intendo eliminar una cita: ", err);
+      console.error("Se ha presentado error intendo eliminar una cita: ", err);
     }
   }
 

@@ -1,15 +1,8 @@
 import {
   REACT_APP_FIREBASE_REALTIME_DB_URL,
-  REACT_APP_FIREBASE_API_KEY,
   REACT_APP_FIREBASE_AUTH_SIGN_IN_URL,
   REACT_APP_FIREBASE_AUTH_SIGN_UP_URL,
 } from "@env";
-
-// console.log(
-//   `Variables de entorno: ${REACT_APP_FIREBASE_REALTIME_DB_URL} -- ${REACT_APP_FIREBASE_API_KEY} -- ${REACT_APP_FIREBASE_AUTH_SIGN_IN_URL} -- ${REACT_APP_FIREBASE_AUTH_SIGN_UP_URL}`
-// );
-
-// export const init = () => {};
 
 export const insertDateFB = async (localId, title, date, status, coords) => {
   try {
@@ -30,7 +23,7 @@ export const insertDateFB = async (localId, title, date, status, coords) => {
     console.log("Id insertado en Firebase: ", data);
     return data;
   } catch (err) {
-    console.err("Se presentó error al intentar insertar la cita en Firebase: ", err.message);
+    console.error("Se presentó error al intentar insertar la cita en Firebase: ", err.message);
   }
 };
 
@@ -46,7 +39,7 @@ export const selectDateFB = async (name) => {
     // console.log("Data en Firebase: ", data);
     return data;
   } catch (err) {
-    console.err("Se presentó error al intentar consultar la cita en Firebase: ", err.message);
+    console.error("Se presentó error al intentar consultar la cita en Firebase: ", err.message);
   }
 };
 
@@ -65,7 +58,7 @@ export const selectDateByLocalIdFB = async (localId) => {
     // console.log("Cita encontrada en Firebase: ", data);
     return data;
   } catch (err) {
-    console.err("Se presentó error al intentar consultar la cita en Firebase: ", err.message);
+    console.error("Se presentó error al intentar consultar la cita en Firebase: ", err.message);
   }
 };
 
@@ -81,7 +74,7 @@ export const deleteDateFB = async (name) => {
     // console.log("Data eliminada en Firebase: ", data);
     return data;
   } catch (err) {
-    console.err("Se presentó error al intentar insertar la cita en Firebase: ", err.message);
+    console.error("Se presentó error al intentar insertar la cita en Firebase: ", err.message);
   }
 };
 
@@ -98,6 +91,56 @@ export const selectDatesFB = async () => {
     // console.log("Citas desde Firebase: ", dates);
     return dates;
   } catch (err) {
-    console.err("Se presentó error al intentar insertar la cita en Firebase: ", err.message);
+    console.error("Se presentó error al intentar insertar la cita en Firebase: ", err.message);
+  }
+};
+
+export const registerFB = async ({ email, password }) => {
+  try {
+    const response = await fetch(`${REACT_APP_FIREBASE_AUTH_SIGN_UP_URL}`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        returnSecureToken: true,
+      }),
+    });
+    console.log("Respuesta al registro: ", JSON.stringify(response));
+    if (!response.ok) {
+      return false;
+      // throw new Error("Error desde Firebase. Respuesta no Ok.");
+    }
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Se presentó error al intentar registrarse desde Firebase: ", err.message);
+  }
+};
+
+export const signInFB = async ({ email, password }) => {
+  try {
+    const response = await fetch(`${REACT_APP_FIREBASE_AUTH_SIGN_IN_URL}`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        returnSecureToken: true,
+      }),
+    });
+    console.log("Respuesta al loggeo: ", JSON.stringify(response));
+    if (!response.ok) {
+      return false;
+      // throw new Error("Error desde Firebase. Respuesta no Ok.");
+    }
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Se presentó error al intentar loggearse desde Firebase: ", err.message);
   }
 };

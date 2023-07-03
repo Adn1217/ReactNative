@@ -35,7 +35,7 @@ export const selectWorksAction = () => {
         newWorkList: dbWorkList,
       });
     } catch (err) {
-      console.err(err.message);
+      console.error(err.message);
     }
   };
 };

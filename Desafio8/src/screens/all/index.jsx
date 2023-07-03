@@ -35,7 +35,7 @@ const AllScreen = ({ workList, setWorkList, route, navigation }) => {
       dispatch(selectWorksAction());
       setModalVisible(false);
     } catch (err) {
-      console.err("Se ha presentado error al intentar eliminar la tarea de BD: ", err);
+      console.error("Se ha presentado error al intentar eliminar la tarea de BD: ", err);
     }
   }
 

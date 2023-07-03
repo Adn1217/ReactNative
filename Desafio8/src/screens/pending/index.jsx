@@ -59,7 +59,7 @@ const InputScreen = ({ workList, setWorkList, route, navigation }) => {
         setText("");
       }
     } catch (err) {
-      console.err("Se ha presentado un error al intentar guardar la tarea en BD: ", err);
+      console.error("Se ha presentado un error al intentar guardar la tarea en BD: ", err);
     }
   }
 
@@ -80,7 +80,7 @@ const InputScreen = ({ workList, setWorkList, route, navigation }) => {
       setWorkList(newWorkList);
       // dispatch(selectWorkListByStatus("Pending"));
     } catch (err) {
-      console.err("Se ha presentado error al intentar actualizar tarea en BD: ", err);
+      console.error("Se ha presentado error al intentar actualizar tarea en BD: ", err);
     }
   }
 
@@ -96,7 +96,7 @@ const InputScreen = ({ workList, setWorkList, route, navigation }) => {
       dispatch(selectWorkListByStatus("Pending"));
       setModalVisible(false);
     } catch (err) {
-      console.err("Se ha presentado un error al intentar eliminar la tarea en BD: ", err);
+      console.error("Se ha presentado un error al intentar eliminar la tarea en BD: ", err);
     }
   }
 

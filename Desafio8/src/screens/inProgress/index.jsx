@@ -49,7 +49,7 @@ const InProgressScreen = ({ workList, setWorkList, route, navigation }) => {
       dispatch(selectWorkListByStatus("InProgress"));
       setModalVisible(false);
     } catch (err) {
-      console.err("Se ha presentado error al intentar eliminar una tarea de BD: ", err);
+      console.error("Se ha presentado error al intentar eliminar una tarea de BD: ", err);
     }
   }
 
@@ -80,7 +80,7 @@ const InProgressScreen = ({ workList, setWorkList, route, navigation }) => {
       // setWorkList(newWorkList);
       dispatch(selectWorkListByStatus("InProgress"));
     } catch (err) {
-      console.err("Se ha presentado error al intentar actualizar tarea en BD: ", err);
+      console.error("Se ha presentado error al intentar actualizar tarea en BD: ", err);
     }
   }
 

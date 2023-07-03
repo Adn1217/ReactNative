@@ -21,7 +21,7 @@ export const selectDatesAction = () => {
         dbDateList,
       });
     } catch (err) {
-      console.err(err.message);
+      console.error(err.message);
     }
   };
 };
@@ -39,7 +39,7 @@ export const insertDateToFB = (localId, text, selected, status, dateLocation) =>
         dbDateList: fbDates,
       });
     } catch (err) {
-      console.err(err.message);
+      console.error(err.message);
     }
   };
 };
@@ -65,7 +65,7 @@ export const deleteDateToFB = (localId) => {
         throw new Error("Se ha presentado error al eliminar cita en Firebase");
       }
     } catch (err) {
-      console.err(err.message);
+      console.error(err.message);
     }
   };
 };
