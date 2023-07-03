@@ -1,7 +1,4 @@
-// import { pendingDate as InitialDateList } from "../../constants";
 import { authTypes } from "../types/auth.types";
-
-// const InitialDBDateList = [];
 const { SIGN_IN, REGISTER } = authTypes;
 
 const initialState = {

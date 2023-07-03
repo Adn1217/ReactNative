@@ -26,12 +26,8 @@ const AllScreen = ({ workList, setWorkList, route, navigation }) => {
   };
 
   async function deleteItem(itemToDelete) {
-    // setWorkList(workList.filter((item) => item.id !== itemToDelete.id));
     try {
-      const deletedDBWork = await deleteWork(itemToDelete.id);
-      console.log("Deleted DB work", deletedDBWork);
-      // console.log("Nueva lista de tareas en BD: ", newWorkList);
-      // setWorkList(newWorkList);
+      await deleteWork(itemToDelete.id);
       dispatch(selectWorksAction());
       setModalVisible(false);
     } catch (err) {

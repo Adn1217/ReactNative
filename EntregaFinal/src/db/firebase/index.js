@@ -106,10 +106,8 @@ export const registerFB = async ({ email, password }) => {
         returnSecureToken: true,
       }),
     });
-    console.log("Respuesta al registro: ", JSON.stringify(response));
     if (!response.ok) {
       return false;
-      // throw new Error("Error desde Firebase. Respuesta no Ok.");
     }
     const data = await response.json();
     return data;
@@ -131,10 +129,8 @@ export const signInFB = async ({ email, password }) => {
         returnSecureToken: true,
       }),
     });
-    console.log("Respuesta al loggeo: ", JSON.stringify(response));
     if (!response.ok) {
       return false;
-      // throw new Error("Error desde Firebase. Respuesta no Ok.");
     }
     const data = await response.json();
     return data;

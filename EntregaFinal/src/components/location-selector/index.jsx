@@ -24,8 +24,7 @@ const LocationSelector = ({ onLocation }) => {
       ]);
       return false;
     } else {
-      const backPermission = await requestBackgroundPermissionsAsync();
-      console.log(backPermission);
+      await requestBackgroundPermissionsAsync();
       return true;
     }
   };

@@ -29,7 +29,6 @@ export const selectWorksAction = () => {
     try {
       const workList = await selectWorks();
       const dbWorkList = await workList.rows._array;
-      console.log("Tareas recibidas: ", dbWorkList);
       dispatch({
         type: UPDATE_WORKLIST,
         newWorkList: dbWorkList,
