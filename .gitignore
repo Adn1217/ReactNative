@@ -13,6 +13,7 @@ web-build/
 *.docx
 *.doc
 *.code-workspace
+compilados/
 
 # macOS
 .DS_Store

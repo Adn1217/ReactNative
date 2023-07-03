@@ -16,7 +16,11 @@ import { Input, Item, Modal, LocationSelector } from "../../components/index";
 import { theme, ORIENTATION } from "../../constants/index.js";
 import { selectDates, insertDate, deleteDate } from "../../db/sqlite/index.js";
 import useOrientation from "../../hooks/useOrientation.jsx";
-import { deleteDateToFB, insertDateToFB } from "../../store/actions/dateItems.action.js";
+import {
+  deleteDateToFB,
+  insertDateToFB,
+  selectDatesAction,
+} from "../../store/actions/dateItems.action.js";
 
 const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
   const [selected, setSelected] = useState("");
@@ -31,11 +35,10 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
   const dispatch = useDispatch();
   const dateListMarked = {};
   pendingDates?.forEach((date) => (dateListMarked[date.date] = { marked: true }));
-  console.log("Se renderiza");
 
-  // useEffect(() => {
-  //   setDateList(pendingDates || []);
-  // }, [pendingDates]);
+  useEffect(() => {
+    setDateList(pendingDates || []);
+  }, []);
 
   function setSelection(day) {
     setInputVisible(true);
@@ -65,8 +68,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
         const insertedDate = await insertDate(text, selected, "Pending", dateLocation);
         newDate.id = insertedDate.insertId;
         dispatch(insertDateToFB(newDate.id, text, selected, "Pending", dateLocation));
-        const dbDatesList = await selectDates();
-        setDateList(dbDatesList.rows._array);
+        dispatch(selectDatesAction());
         setText("");
       } catch (err) {
         console.error("Se ha presentador error intentado eliminar una cita: ", err);
@@ -75,11 +77,10 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
   }
 
   async function deleteItem(itemToDelete) {
-    const newDateList = dateList.filter((item) => item.id !== itemToDelete.id);
     try {
       await deleteDate(itemToDelete.id);
       dispatch(deleteDateToFB(itemToDelete.id));
-      setDateList(newDateList);
+      dispatch(selectDatesAction());
       setModalVisible(false);
     } catch (err) {
       console.error("Se ha presentado error intendo eliminar una cita: ", err);
