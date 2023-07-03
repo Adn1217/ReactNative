@@ -14,7 +14,7 @@ export const selectDatesAction = () => {
   return async (dispatch) => {
     try {
       const dates = await selectDates();
-      const dbDateList = await dates.rows.array;
+      const dbDateList = await dates.rows._array;
       console.log("Citas recibidas: ", dbDateList);
       dispatch({
         type: UPDATE_DATELIST,

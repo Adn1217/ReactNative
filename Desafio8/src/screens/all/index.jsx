@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Text, View, FlatList } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 
 import { styles } from "./styles.js";
@@ -14,10 +13,6 @@ const AllScreen = ({ workList, setWorkList, route, navigation }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const workListToShow = useSelector((state) => state.workList.items);
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(selectWorksAction());
-  // }, []);
 
   const workToRender = ({ item }) => {
     return (

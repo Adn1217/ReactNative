@@ -7,11 +7,7 @@ import { Input, Modal, Item, Header } from "../../components/index";
 import { theme, ORIENTATION } from "../../constants/index.js";
 import { deleteWork, insertWork, selectWorks, updateWork } from "../../db/sqlite/index.js";
 import useOrientation from "../../hooks/useOrientation.jsx";
-import {
-  selectWorkListByStatus,
-  selectWorksAction,
-  updateWorkList,
-} from "../../store/actions/workItems.action.js";
+import { selectWorkListByStatus, selectWorksAction } from "../../store/actions/workItems.action.js";
 
 const InputScreen = ({ workList, setWorkList, route, navigation }) => {
   const [text, setText] = useState("");

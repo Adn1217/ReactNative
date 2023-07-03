@@ -1,4 +1,9 @@
-import { getCurrentPositionAsync, requestPermissionsAsync } from "expo-location";
+import {
+  getCurrentPositionAsync,
+  requestPermissionsAsync,
+  requestForegroundPermissionsAsync,
+  requestBackgroundPermissionsAsync,
+} from "expo-location";
 import { useState } from "react";
 import { View, Button, Text, Alert } from "react-native";
 
@@ -10,15 +15,19 @@ const LocationSelector = ({ onLocation }) => {
   const [pickedLocation, setPickedLocation] = useState();
   const orientation = useOrientation();
   const verifyPermissions = async () => {
-    const { status } = await requestPermissionsAsync();
+    // const { status } = await requestPermissionsAsync();
+    const { status } = await requestForegroundPermissionsAsync();
 
     if (status !== "granted") {
       Alert.alert("Permisos insuficientes", "Necesitamos permisos para la ubicación", [
         { text: "Ok" },
       ]);
       return false;
+    } else {
+      const backPermission = await requestBackgroundPermissionsAsync();
+      console.log(backPermission);
+      return true;
     }
-    return true;
   };
 
   async function selectLocation() {

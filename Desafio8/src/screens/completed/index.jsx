@@ -6,14 +6,9 @@ import { styles } from "./styles.js";
 import { Modal, Item, Header } from "../../components/index";
 import { theme } from "../../constants/index.js";
 import { deleteWork } from "../../db/sqlite/index.js";
-import {
-  selectWorkListByStatus,
-  selectWorksAction,
-  updateWorkList,
-} from "../../store/actions/workItems.action.js";
+import { selectWorkListByStatus, selectWorksAction } from "../../store/actions/workItems.action.js";
 
 const CompletedScreen = ({ workList, setWorkList, route, navigation }) => {
-  const [text, setText] = React.useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const workListToShow = useSelector((state) => state.workList.filteredItems);

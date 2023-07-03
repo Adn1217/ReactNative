@@ -16,7 +16,11 @@ import { Input, Header, Item, Modal, LocationSelector } from "../../components/i
 import { theme, ORIENTATION } from "../../constants/index.js";
 import { selectDates, insertDate, deleteDate } from "../../db/sqlite/index.js";
 import useOrientation from "../../hooks/useOrientation.jsx";
-import { deleteDateToFB, insertDateToFB } from "../../store/actions/dateItems.action.js";
+import {
+  deleteDateToFB,
+  insertDateToFB,
+  selectDatesAction,
+} from "../../store/actions/dateItems.action.js";
 
 const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
   const [selected, setSelected] = useState("");
@@ -26,18 +30,18 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
   const [inputVisible, setInputVisible] = useState(false);
   const [locationVisible, setLocationVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  // const pendingDates = useSelector((state) => state.dateList.items);
-  // setDateList(pendingDates || []);
-  const [dateListToShow, setDateListToShow] = useState(
-    dateList.filter((item) => item.status === "Pending")
-  );
+  const pendingDates = useSelector((state) => state.dateList.items);
   const [dateLocation, setDateLocation] = useState({});
   const dispatch = useDispatch();
   const dateListMarked = {};
-  dateListToShow.forEach((date) => (dateListMarked[date.date] = { marked: true }));
-  console.log("Fechas reservadas: ", dateListMarked);
-  console.log("Citas a mostrar: ", dateListToShow);
+  pendingDates.forEach((date) => (dateListMarked[date.date] = { marked: true }));
+  // console.log("Fechas reservadas: ", dateListMarked);
+  console.log("Citas a mostrar: ", pendingDates);
   // console.log("Citas: ", dateList);
+
+  useEffect(() => {
+    setDateList(pendingDates || []);
+  }, []);
 
   function setSelection(day) {
     setInputVisible(true);
@@ -183,7 +187,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
             ? styles.screenContainer
             : styles.screenContainerLandscape
         }>
-        <Header title="TO DO LIST" navigation={navigation} route={route} />
+        {/* <Header title="TO DO LIST" navigation={navigation} route={route} /> */}
         <View
           style={
             orientation === ORIENTATION.PORTRAIT
@@ -241,7 +245,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
             </View>
           ) : null}
           {locationVisible ? <LocationSelector onLocation={setCurrentLocation} /> : null}
-          {!inputVisible && dateListToShow.length > 0 ? (
+          {!inputVisible && dateList.length > 0 ? (
             <View
               style={
                 orientation === ORIENTATION.PORTRAIT
@@ -254,7 +258,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
               </Text>
               <FlatList
                 renderItem={dateToRender}
-                data={dateListToShow}
+                data={pendingDates}
                 keyExtractor={(item) => item.id}
                 style={styles.flatList}
               />

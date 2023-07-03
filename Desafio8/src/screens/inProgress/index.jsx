@@ -6,11 +6,7 @@ import { styles } from "./styles.js";
 import { Modal, Item, Header } from "../../components/index";
 import { theme } from "../../constants/index.js";
 import { deleteWork, updateWork } from "../../db/sqlite/index.js";
-import {
-  selectWorkListByStatus,
-  selectWorksAction,
-  updateWorkList,
-} from "../../store/actions/workItems.action.js";
+import { selectWorkListByStatus, selectWorksAction } from "../../store/actions/workItems.action.js";
 
 const InProgressScreen = ({ workList, setWorkList, route, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
