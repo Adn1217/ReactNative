@@ -1,4 +1,3 @@
-// import { pendingWork as InitialWorkList } from "../../constants";
 import { workListTypes } from "../types/workList.types";
 
 const { SELECT_WORKLIST_ITEM, SELECT_WORKLIST_BY_STATUS, SELECT_STATUS, UPDATE_WORKLIST } =

@@ -11,7 +11,6 @@ const Stack = createNativeStackNavigator();
 const DatesNavigator = ({ route, navigation }) => {
   const pendingDates = useSelector((state) => state.dateList.items);
   const [dateList, setDateList] = useState(pendingDates || []);
-  console.log("Lista de citas pendientes: ", dateList);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,10 +27,6 @@ const DatesNavigator = ({ route, navigation }) => {
       />
     );
   };
-
-  // const AllScreenComponent = ({route, navigation}) => {
-  //   return (<AllScreen workList={workList} setWorkList={updateWorkList} route={route} navigation={navigation} />)
-  // }
 
   return (
     <Stack.Navigator

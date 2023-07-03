@@ -12,7 +12,6 @@ const CompletedScreen = ({ workList, setWorkList, route, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const workListToShow = useSelector((state) => state.workList.filteredItems);
-  // const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'Completed'))
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,13 +30,8 @@ const CompletedScreen = ({ workList, setWorkList, route, navigation }) => {
   };
 
   async function deleteItem(itemToDelete) {
-    // const newWorkList = workList.filter((item) => item.id !== itemToDelete);
     try {
-      const deletedDBWork = await deleteWork(itemToDelete.id);
-      console.log("Deleted DB work", deletedDBWork);
-      // console.log("Nueva lista de tareas en BD: ", newWorkList);
-      // setWorkList(newWorkList);
-      // dispatch(updateWorkList(newWorkList));
+      await deleteWork(itemToDelete.id);
       dispatch(selectWorksAction());
       dispatch(selectWorkListByStatus("Completed"));
       setModalVisible(false);

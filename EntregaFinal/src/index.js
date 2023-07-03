@@ -5,45 +5,23 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 
 import { theme } from "./constants/theme.js";
-import { init, init2, reInit, reInit2 } from "./db/sqlite";
+import { init, init2 } from "./db/sqlite";
 import AppNavigator from "./navigation";
 import store from "./store/index.js";
 import { styles } from "../assets/styles/styles.js";
 
-// reInit()
-//   .then(() => {
-//     console.log("Base de datos Dates reiniciada");
-//   })
-//   .catch((err) => {
-//     console.log("Se ha presentado error al reiniciar base de datos Dates");
-//     console.log(err);
-//   });
-
-// reInit2()
-//   .then(() => {
-//     console.log("Base de datos Works reiniciada");
-//   })
-//   .catch((err) => {
-//     console.log("Se ha presentado error al reiniciar base de datos Works");
-//     console.log(err);
-//   });
-
 init()
-  .then(() => {
-    console.log("Base de datos Dates inicializada");
-  })
+  .then(() => {})
   .catch((err) => {
-    console.log("Se ha presentado error al inicializar base de datos Dates");
-    console.log(err);
+    console.error("Se ha presentado error al inicializar base de datos Dates");
+    console.error(err);
   });
 
 init2()
-  .then(() => {
-    console.log("Base de datos Works inicializada");
-  })
+  .then(() => {})
   .catch((err) => {
-    console.log("Se ha presentado error al inicializar base de datos Works");
-    console.log(err);
+    console.error("Se ha presentado error al inicializar base de datos Works");
+    console.error(err);
   });
 
 export default function App() {

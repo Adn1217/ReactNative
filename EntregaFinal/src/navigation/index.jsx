@@ -5,7 +5,6 @@ import AuthNavigator from "./auth";
 import TabNavigator from "./tabs";
 
 const Navigator = () => {
-  // const [userId, setUserId] = useState(null);
   const userId = useSelector((state) => state.auth.userId);
   return <NavigationContainer>{userId ? <TabNavigator /> : <AuthNavigator />}</NavigationContainer>;
 };

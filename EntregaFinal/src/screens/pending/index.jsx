@@ -16,7 +16,6 @@ const InputScreen = ({ workList, setWorkList, route, navigation }) => {
   const workListToShow = useSelector((state) => state.workList.filteredItems);
   const orientation = useOrientation();
   const dispatch = useDispatch();
-  console.log("Pendientes a mostrar: ", workListToShow);
 
   useEffect(() => {
     dispatch(selectWorkListByStatus("Pending"));
@@ -43,19 +42,9 @@ const InputScreen = ({ workList, setWorkList, route, navigation }) => {
   async function addItem() {
     try {
       if (text !== "") {
-        const newWork = {
-          // id: Math.random() * 1000,
-          work: text,
-          status: "Pending",
-        };
-        // const newList = [...workList, newWork];
-        // newWork.id = insertedWork.insertId;
-        const insertedWork = await insertWork(text, "Pending");
-        console.log("Id de nueva cita en BD: ", insertedWork.insertId);
-        const newList = await selectWorks();
-        console.log("Nueva lista de tareas: ", newList.rows._array);
-        const dbWorkList = dispatch(selectWorksAction());
-        // setWorkList(newList.rows._array);
+        await insertWork(text, "Pending");
+        await selectWorks();
+        dispatch(selectWorksAction());
         setText("");
       }
     } catch (err) {
@@ -73,25 +62,17 @@ const InputScreen = ({ workList, setWorkList, route, navigation }) => {
       newItem
     );
     try {
-      const updatedDBWork = await updateWork(item.id, "InProgress");
-      console.log(updatedDBWork);
+      await updateWork(item.id, "InProgress");
       dispatch(selectWorksAction());
-      console.log("Nueva lista de tareas: ", newWorkList);
       setWorkList(newWorkList);
-      // dispatch(selectWorkListByStatus("Pending"));
     } catch (err) {
       console.error("Se ha presentado error al intentar actualizar tarea en BD: ", err);
     }
   }
 
   async function deleteItem(itemToDelete) {
-    // const newWorkList = workList.filter((item) => item.id !== itemToDelete.id);
     try {
-      const deletedDBWork = await deleteWork(itemToDelete.id);
-      console.log("Deleted DB work", deletedDBWork);
-      // console.log("Nueva lista de tareas en BD: ", newWorkList);
-      // setWorkList(newWorkList);
-      // dispatch(updateWorkList(newWorkList));
+      await deleteWork(itemToDelete.id);
       dispatch(selectWorksAction());
       dispatch(selectWorkListByStatus("Pending"));
       setModalVisible(false);

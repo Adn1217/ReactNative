@@ -1,4 +1,3 @@
-// import { pendingDate as InitialDateList } from "../../constants";
 import { dateListTypes } from "../types/dateList.types";
 
 const InitialDBDateList = [];

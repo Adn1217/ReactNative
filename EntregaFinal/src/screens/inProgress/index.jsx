@@ -13,11 +13,6 @@ const InProgressScreen = ({ workList, setWorkList, route, navigation }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const workListToShow = useSelector((state) => state.workList.filteredItems);
   const dispatch = useDispatch();
-  // const [workListToShow, setWorkListToShow] = useState(workList.filter((item) => item.status === 'InProgress'));
-
-  // const orientation = useOrientation();
-
-  // console.log("Orientación: ", orientation);
 
   useEffect(() => {
     dispatch(selectWorkListByStatus("InProgress"));
@@ -38,13 +33,8 @@ const InProgressScreen = ({ workList, setWorkList, route, navigation }) => {
   };
 
   async function deleteItem(itemToDelete) {
-    // const newWorkList = workList.filter((item) => item.id !== itemToDelete.id);
     try {
-      const deletedDBWork = await deleteWork(itemToDelete.id);
-      console.log("Deleted DB work", deletedDBWork);
-      // console.log("Nueva lista de tareas en BD: ", newWorkList);
-      // setWorkList(newWorkList);
-      // dispatch(updateWorkList(newWorkList));
+      await deleteWork(itemToDelete.id);
       dispatch(selectWorksAction());
       dispatch(selectWorkListByStatus("InProgress"));
       setModalVisible(false);
@@ -73,11 +63,7 @@ const InProgressScreen = ({ workList, setWorkList, route, navigation }) => {
       newItem
     );
     try {
-      const updatedDBWork = await updateWork(item.id, "Completed");
-      console.log(updatedDBWork);
-      // dispatch(selectWorksAction);
-      console.log("Nueva lista de tareas: ", newWorkList);
-      // setWorkList(newWorkList);
+      await updateWork(item.id, "Completed");
       dispatch(selectWorkListByStatus("InProgress"));
     } catch (err) {
       console.error("Se ha presentado error al intentar actualizar tarea en BD: ", err);
