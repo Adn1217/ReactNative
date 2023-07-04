@@ -27,7 +27,6 @@ export const styles = StyleSheet.create({
   errorContainer: {
     flex: 1,
     marginTop: 20,
-    // marginTop: 0,
     paddingVertical: 0,
   },
   errorMessage: {
