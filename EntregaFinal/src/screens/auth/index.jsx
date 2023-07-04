@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 
 import { styles } from "./styles";
+import { GenericInput } from "../../components/index";
 import { theme } from "../../constants";
 import { signIn, register } from "../../store/actions/auth.action";
 
@@ -27,41 +28,47 @@ const Auth = () => {
     <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.label}>Email</Text>
-        <TextInput
-          style={styles.input}
+        <GenericInput
           placeholder="email@gmail.com"
           placeholderTextColor={theme.colors.cancel}
           autoCapitalize="none"
           autoCorrect={false}
           onChangeText={(text) => setEmail(text)}
           value={email}
+          label="Email"
+          error="Email inválido"
+          touched
+          hasError
         />
-        <Text style={styles.label}>Password</Text>
-        <TextInput
-          style={styles.input}
+        <GenericInput
           placeholder=""
-          secureTextEntry
+          type="password"
           autoCapitalize="none"
           autoCorrect={false}
           onChangeText={(text) => setPassword(text)}
           value={password}
+          label="Password"
+          error="Verifique credenciales"
+          touched
+          hasError
         />
-        <TouchableOpacity
-          style={styles.link}
-          onPress={() => {
-            changeAuthType();
-          }}>
-          <Text style={styles.linkText}>{messageText}</Text>
-        </TouchableOpacity>
-        <View style={styles.submitContainer}>
-          <Button
-            title={buttonTitle}
-            color={theme.colors.secondary}
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.link}
             onPress={() => {
-              handleAuth();
-            }}
-          />
+              changeAuthType();
+            }}>
+            <Text style={styles.linkText}>{messageText}</Text>
+          </TouchableOpacity>
+          <View style={styles.submitContainer}>
+            <Button
+              title={buttonTitle}
+              color={theme.colors.secondary}
+              onPress={() => {
+                handleAuth();
+              }}
+            />
+          </View>
         </View>
       </View>
     </View>
