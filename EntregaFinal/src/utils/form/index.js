@@ -1,4 +1,4 @@
-const emailFormat = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const emailFormat = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const minPwdLength = 7;
 export const UPDATE_FORM = "UPDATE_FORM";
 
@@ -6,7 +6,6 @@ function validateInput({ name, value }) {
   let hasError = false;
   let error = "";
   const noSpaceValue = value.trim();
-  console.log(noSpaceValue);
 
   switch (name) {
     case "email":
@@ -39,7 +38,6 @@ function validateInput({ name, value }) {
 export const onInputChange = ({ name, value, dispatch, formState }) => {
   const { hasError, error } = validateInput({ name, value });
   let isFormValid = true;
-  console.log("onInputChange recibe: ", name, value);
   for (const key in formState) {
     const item = formState[key];
     if (key === name && hasError) {

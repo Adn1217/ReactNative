@@ -4,9 +4,9 @@ import {
   REACT_APP_FIREBASE_AUTH_SIGN_UP_URL,
 } from "@env";
 
-export const insertDateFB = async (localId, title, date, status, coords) => {
+export const insertDateFB = async (localId, title, date, status, coords, token) => {
   try {
-    const response = await fetch(`${REACT_APP_FIREBASE_REALTIME_DB_URL}dates.json`, {
+    const response = await fetch(`${REACT_APP_FIREBASE_REALTIME_DB_URL}dates.json?auth=${token}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -26,14 +26,17 @@ export const insertDateFB = async (localId, title, date, status, coords) => {
   }
 };
 
-export const selectDateFB = async (name) => {
+export const selectDateFB = async (name, token) => {
   try {
-    const response = await fetch(`${REACT_APP_FIREBASE_REALTIME_DB_URL}/dates/${name}.json`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${REACT_APP_FIREBASE_REALTIME_DB_URL}/dates/${name}.json?auth=${token}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
     const data = await response.json();
     return data;
   } catch (err) {
@@ -41,10 +44,10 @@ export const selectDateFB = async (name) => {
   }
 };
 
-export const selectDateByLocalIdFB = async (localId) => {
+export const selectDateByLocalIdFB = async (localId, token) => {
   try {
     const response = await fetch(
-      `${REACT_APP_FIREBASE_REALTIME_DB_URL}/dates.json?orderBy="localId"&equalTo=${localId}`,
+      `${REACT_APP_FIREBASE_REALTIME_DB_URL}/dates.json?auth=${token}&orderBy="localId"&equalTo=${localId}`,
       {
         method: "GET",
         headers: {
@@ -60,14 +63,17 @@ export const selectDateByLocalIdFB = async (localId) => {
   }
 };
 
-export const deleteDateFB = async (name) => {
+export const deleteDateFB = async (name, token) => {
   try {
-    const response = await fetch(`${REACT_APP_FIREBASE_REALTIME_DB_URL}/dates/${name}.json`, {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${REACT_APP_FIREBASE_REALTIME_DB_URL}/dates/${name}.json?auth=${token}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
     const data = response.ok;
     // console.log("Data eliminada en Firebase: ", data);
     return data;
@@ -76,9 +82,9 @@ export const deleteDateFB = async (name) => {
   }
 };
 
-export const selectDatesFB = async () => {
+export const selectDatesFB = async (token) => {
   try {
-    const response = await fetch(`${REACT_APP_FIREBASE_REALTIME_DB_URL}/dates.json`, {
+    const response = await fetch(`${REACT_APP_FIREBASE_REALTIME_DB_URL}/dates.json?auth=${token}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -133,6 +139,7 @@ export const signInFB = async ({ email, password }) => {
       return false;
     }
     const data = await response.json();
+    console.log("Respuesta de FB: ", JSON.stringify(data));
     return data;
   } catch (err) {
     console.error("Se presentó error al intentar loggearse desde Firebase: ", err.message);

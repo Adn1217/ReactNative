@@ -10,6 +10,7 @@ const Stack = createNativeStackNavigator();
 
 const DatesNavigator = ({ route, navigation }) => {
   const pendingDates = useSelector((state) => state.dateList.items);
+  const token = useSelector((state) => state.auth.token);
   const [dateList, setDateList] = useState(pendingDates || []);
   const dispatch = useDispatch();
 
@@ -24,6 +25,7 @@ const DatesNavigator = ({ route, navigation }) => {
         navigation={navigation}
         dateList={dateList}
         setDateList={setDateList}
+        token={token}
       />
     );
   };
