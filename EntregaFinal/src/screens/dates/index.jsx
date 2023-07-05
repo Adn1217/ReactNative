@@ -144,23 +144,27 @@ const DatesScreen = ({ route, navigation, dateList, setDateList, token }) => {
               style={orientation === ORIENTATION.PORTRAIT ? styles.title : styles.titleLandscape}>
               Dates Screen
             </Text>
-            <ScrollView
-              style={orientation === ORIENTATION.PORTRAIT ? null : styles.scrollViewLandscape}>
-              <Calendar
-                onDayPress={(day) => setSelection(day.dateString)}
-                markedDates={{
-                  [selected]: {
-                    selected: true,
-                    disableTouchEvent: true,
-                    selectedDotColor: "orange",
-                  },
-                  ...dateListMarked,
-                }}
-                style={
-                  orientation === ORIENTATION.PORTRAIT ? styles.calendar : styles.calendarLandscape
-                }
-              />
-            </ScrollView>
+            {!locationVisible ? (
+              <ScrollView
+                style={orientation === ORIENTATION.PORTRAIT ? null : styles.scrollViewLandscape}>
+                <Calendar
+                  onDayPress={(day) => setSelection(day.dateString)}
+                  markedDates={{
+                    [selected]: {
+                      selected: true,
+                      disableTouchEvent: true,
+                      selectedDotColor: "orange",
+                    },
+                    ...dateListMarked,
+                  }}
+                  style={
+                    orientation === ORIENTATION.PORTRAIT
+                      ? styles.calendar
+                      : styles.calendarLandscape
+                  }
+                />
+              </ScrollView>
+            ) : null}
           </View>
           {inputVisible ? (
             <View

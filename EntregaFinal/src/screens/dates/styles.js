@@ -9,7 +9,8 @@ export const styles = StyleSheet.create({
   titleLandscape: {
     fontSize: 20,
     fontWeight: "bold",
-    padding: "2%",
+    paddingBottom: "1%",
+    // padding: "2%",
   },
   screenContainer: {
     // paddingTop: '10%',
@@ -31,26 +32,31 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     // backgroundColor: 'orange',
-    height: "70%",
+    height: "95%",
   },
   datesContainer: {
     // backgroundColor: 'blue',
-    height: "50%",
-    minHeight: 380,
     width: 350,
     // alignContent: 'center'
     alignItems: "center",
   },
   datesContainerLandscape: {
     flex: 2,
+    height: "40%",
+    minHeight: 250,
     // backgroundColor: 'blue',
     // borderWidth: 5,
     padding: 10,
     alignItems: "center",
   },
-  scrollViewLandscape: {},
+  scrollViewLandscape: {
+    minHeight: "90%",
+    flex: 1,
+    marginTop: "2%",
+  },
   calendar: {
     minWidth: "90%",
+    // height: "100%",
   },
   calendarLandscape: {
     minWidth: "90%",
@@ -63,9 +69,13 @@ export const styles = StyleSheet.create({
   inputComponentLandscape: {
     flex: 1,
     padding: 20,
-    minWidth: 150,
-    marginHorizontal: 10,
+    // marginVertical: "2%",
+    minWidth: "20%",
+    maxWidth: "40%",
+    // maxHeight: 220,
+    marginHorizontal: "2%",
     backgroundColor: "white",
+    marginVertical: "1%",
     // backgroundColor: 'yellow'
   },
   flatListPortrait: {
@@ -75,9 +85,11 @@ export const styles = StyleSheet.create({
     // alignItems: 'center',
   },
   flatListContainer: {
-    flex: 2,
-    minWidth: 74,
+    flex: 1,
+    minWidth: "40%",
     maxWidth: "40%",
+    minHeight: "80%",
+    marginHorizontal: "2%",
     justifyContent: "space-evenly",
     // alignItems: 'center',
   },
