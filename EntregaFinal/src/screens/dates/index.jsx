@@ -144,7 +144,8 @@ const DatesScreen = ({ route, navigation, dateList, setDateList, token }) => {
               style={orientation === ORIENTATION.PORTRAIT ? styles.title : styles.titleLandscape}>
               Dates Screen
             </Text>
-            {!locationVisible ? (
+            {(!locationVisible && orientation === ORIENTATION.PORTRAIT) ||
+            orientation === ORIENTATION.LANDSCAPE ? (
               <ScrollView
                 style={orientation === ORIENTATION.PORTRAIT ? null : styles.scrollViewLandscape}>
                 <Calendar
