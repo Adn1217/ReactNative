@@ -139,7 +139,6 @@ export const signInFB = async ({ email, password }) => {
       return false;
     }
     const data = await response.json();
-    console.log("Respuesta de FB: ", JSON.stringify(data));
     return data;
   } catch (err) {
     console.error("Se presentó error al intentar loggearse desde Firebase: ", err.message);
