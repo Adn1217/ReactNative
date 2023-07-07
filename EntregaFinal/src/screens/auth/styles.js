@@ -12,6 +12,8 @@ export const styles = StyleSheet.create({
   content: {
     width: "80%",
     maxWidth: 400,
+    height: "50%",
+    minHeight: 320,
     padding: 15,
     margin: 15,
     backgroundColor: "white",
@@ -31,19 +33,13 @@ export const styles = StyleSheet.create({
     fontFamily: "poppinsBold",
     fontSize: 16,
     textAlign: "center",
+    marginVertical: "3%",
   },
-  label: {
-    fontSize: 14,
-    fontFamily: "poppins",
-    paddingVertical: 8,
-  },
-  input: {
-    height: 45,
-    borderBottomColor: theme.colors.primary,
-    borderBottomWidth: 1,
-    // width: "90%",
-    fontFamily: "poppins",
-    marginBottom: 5,
+  buttonContainer: {
+    // marginTop: "15%",
+    // paddingTop: "1%",
+    minHeight: "12%",
+    alignItems: "center",
   },
   link: {
     paddingVertical: 5,
@@ -60,7 +56,8 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
   submitContainer: {
-    paddingVertical: 5,
-    // width: "90%",
+    paddingVertical: 0,
+    width: "50%",
+    maxWidth: 200,
   },
 });

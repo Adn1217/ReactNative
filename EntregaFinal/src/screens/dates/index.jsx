@@ -22,7 +22,7 @@ import {
   selectDatesAction,
 } from "../../store/actions/dateItems.action.js";
 
-const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
+const DatesScreen = ({ route, navigation, dateList, setDateList, token }) => {
   const [selected, setSelected] = useState("");
   const orientation = useOrientation();
   const [text, setText] = useState("");
@@ -67,7 +67,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
       try {
         const insertedDate = await insertDate(text, selected, "Pending", dateLocation);
         newDate.id = insertedDate.insertId;
-        dispatch(insertDateToFB(newDate.id, text, selected, "Pending", dateLocation));
+        dispatch(insertDateToFB(newDate.id, text, selected, "Pending", dateLocation, token));
         dispatch(selectDatesAction());
         setText("");
       } catch (err) {
@@ -79,7 +79,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
   async function deleteItem(itemToDelete) {
     try {
       await deleteDate(itemToDelete.id);
-      dispatch(deleteDateToFB(itemToDelete.id));
+      dispatch(deleteDateToFB(itemToDelete.id, token));
       dispatch(selectDatesAction());
       setModalVisible(false);
     } catch (err) {
@@ -144,23 +144,28 @@ const DatesScreen = ({ route, navigation, dateList, setDateList }) => {
               style={orientation === ORIENTATION.PORTRAIT ? styles.title : styles.titleLandscape}>
               Dates Screen
             </Text>
-            <ScrollView
-              style={orientation === ORIENTATION.PORTRAIT ? null : styles.scrollViewLandscape}>
-              <Calendar
-                onDayPress={(day) => setSelection(day.dateString)}
-                markedDates={{
-                  [selected]: {
-                    selected: true,
-                    disableTouchEvent: true,
-                    selectedDotColor: "orange",
-                  },
-                  ...dateListMarked,
-                }}
-                style={
-                  orientation === ORIENTATION.PORTRAIT ? styles.calendar : styles.calendarLandscape
-                }
-              />
-            </ScrollView>
+            {(!locationVisible && orientation === ORIENTATION.PORTRAIT) ||
+            orientation === ORIENTATION.LANDSCAPE ? (
+              <ScrollView
+                style={orientation === ORIENTATION.PORTRAIT ? null : styles.scrollViewLandscape}>
+                <Calendar
+                  onDayPress={(day) => setSelection(day.dateString)}
+                  markedDates={{
+                    [selected]: {
+                      selected: true,
+                      disableTouchEvent: true,
+                      selectedDotColor: "orange",
+                    },
+                    ...dateListMarked,
+                  }}
+                  style={
+                    orientation === ORIENTATION.PORTRAIT
+                      ? styles.calendar
+                      : styles.calendarLandscape
+                  }
+                />
+              </ScrollView>
+            ) : null}
           </View>
           {inputVisible ? (
             <View

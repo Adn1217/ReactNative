@@ -19,22 +19,22 @@ export const selectDatesAction = () => {
   };
 };
 
-export const insertDateToFB = (localId, text, selected, status, dateLocation) => {
+export const insertDateToFB = (localId, text, selected, status, dateLocation, token) => {
   return async (dispatch) => {
     try {
-      await insertDateFB(localId, text, selected, status, dateLocation);
+      await insertDateFB(localId, text, selected, status, dateLocation, token);
     } catch (err) {
       console.error(err.message);
     }
   };
 };
 
-export const deleteDateToFB = (localId) => {
+export const deleteDateToFB = (localId, token) => {
   return async (dispatch) => {
     try {
-      const dateToDeleteFB = await selectDateByLocalIdFB(localId);
+      const dateToDeleteFB = await selectDateByLocalIdFB(localId, token);
       const dateToDeleteName = Object.keys(dateToDeleteFB)[0];
-      const deletedDateFB = await deleteDateFB(dateToDeleteName);
+      const deletedDateFB = await deleteDateFB(dateToDeleteName, token);
       if (deletedDateFB) {
         console.log("Cita eliminada en FB correctamente.");
       } else {
