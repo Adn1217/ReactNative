@@ -4,3 +4,4 @@ export { default as Item } from "./worklist/item/index";
 export { default as Header } from "./header/index";
 export { default as LocationSelector } from "./location-selector";
 export { default as GenericInput } from "./genericInput";
+export { default as mapPreview } from "./mapPreview";
