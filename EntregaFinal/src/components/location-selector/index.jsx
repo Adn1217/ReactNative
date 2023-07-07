@@ -18,15 +18,13 @@ const LocationSelector = ({ onLocation }) => {
   const verifyPermissions = async () => {
     // const { status } = await requestPermissionsAsync();
     const { status } = await requestForegroundPermissionsAsync();
-    console.log(status);
     if (status !== "granted") {
       Alert.alert("Permisos insuficientes", "Necesitamos permisos para la ubicación", [
         { text: "Ok" },
       ]);
       return false;
     } else {
-      const bgPermissions = await requestBackgroundPermissionsAsync();
-      console.log(bgPermissions);
+      await requestBackgroundPermissionsAsync();
       return true;
     }
   };
@@ -51,13 +49,6 @@ const LocationSelector = ({ onLocation }) => {
       <MapPreview location={pickedLocation} style={styles.preview}>
         <Text>No hay ubicación seleccionada</Text>
       </MapPreview>
-      {/* <View> */}
-      {/* {!pickedLocation ? (
-          <Text>No hay ubicación seleccionada</Text>
-        ) : (
-          <Text>{`Latitud: ${pickedLocation.lat}, Longitud: ${pickedLocation.lon}`}</Text>
-        )} */}
-      {/* </View> */}
       <View style={styles.button}>
         <Button title="Ubicación actual" onPress={selectLocation} color={theme.colors.primary} />
       </View>

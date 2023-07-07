@@ -14,7 +14,7 @@ web-build/
 *.doc
 *.code-workspace
 compilados/
-
+Certificado.png
 # macOS
 .DS_Store
 

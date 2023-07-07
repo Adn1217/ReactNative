@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     minHeight: 75,
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "white",
+    backgroundColor: "white",
     borderColor: theme.colors.secondary,
     borderWidth: 2,
     borderStyle: "solid",
