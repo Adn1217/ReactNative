@@ -1,14 +1,20 @@
 import { StyleSheet } from "react-native";
 
+import { theme } from "../../constants";
+
 export const styles = StyleSheet.create({
   containerPortrait: {
     flex: 1,
     maxWidth: 350,
-    maxHeight: "10%",
+    height: "50%",
+    maxHeight: 350,
     minHeight: 75,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
+    borderColor: theme.colors.secondary,
+    borderWidth: 2,
+    borderStyle: "solid",
     margin: 10,
   },
   containerLandscape: {
@@ -23,6 +29,10 @@ export const styles = StyleSheet.create({
   },
   button: {
     maxWidth: 200,
-    marginVertical: 5,
+    marginVertical: 0,
+  },
+  preview: {
+    // textAlign: "center",
+    // maxHeight: "90%",
   },
 });

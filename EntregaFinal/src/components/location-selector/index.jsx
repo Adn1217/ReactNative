@@ -10,6 +10,7 @@ import { View, Button, Text, Alert } from "react-native";
 import { styles } from "./styles";
 import { theme, ORIENTATION } from "../../constants";
 import useOrientation from "../../hooks/useOrientation.jsx";
+import MapPreview from "../mapPreview";
 
 const LocationSelector = ({ onLocation }) => {
   const [pickedLocation, setPickedLocation] = useState();
@@ -17,7 +18,6 @@ const LocationSelector = ({ onLocation }) => {
   const verifyPermissions = async () => {
     // const { status } = await requestPermissionsAsync();
     const { status } = await requestForegroundPermissionsAsync();
-
     if (status !== "granted") {
       Alert.alert("Permisos insuficientes", "Necesitamos permisos para la ubicación", [
         { text: "Ok" },
@@ -46,13 +46,9 @@ const LocationSelector = ({ onLocation }) => {
       style={
         orientation === ORIENTATION.PORTRAIT ? styles.containerPortrait : styles.containerLandscape
       }>
-      <View>
-        {!pickedLocation ? (
-          <Text>No hay ubicación seleccionada</Text>
-        ) : (
-          <Text>{`Latitud: ${pickedLocation.lat}, Longitud: ${pickedLocation.lon}`}</Text>
-        )}
-      </View>
+      <MapPreview location={pickedLocation} style={styles.preview}>
+        <Text>No hay ubicación seleccionada</Text>
+      </MapPreview>
       <View style={styles.button}>
         <Button title="Ubicación actual" onPress={selectLocation} color={theme.colors.primary} />
       </View>
