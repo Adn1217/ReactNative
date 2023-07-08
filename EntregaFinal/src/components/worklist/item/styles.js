@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   listItem: {
+    flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
     marginTop: 10,
@@ -17,16 +18,16 @@ export const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
+    minWidth: "90%",
     elevation: 5,
   },
   itemNameContainer: {
-    maxWidth: "75%",
+    flex: 2,
+    minWidth: "25%",
   },
   itemName: {
     marginRight: 10,
-    minHeight: 30,
-    width: 180,
+    minWidth: "40%",
     textAlign: "center",
     paddingVertical: 10,
     fontFamily: "poppins",
@@ -34,9 +35,10 @@ export const styles = StyleSheet.create({
   },
   itemContainer: {},
   buttonContainer: {
+    flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    minWidth: "30%",
+    minWidth: "40%",
   },
   deleteButton: {},
   Pending: {

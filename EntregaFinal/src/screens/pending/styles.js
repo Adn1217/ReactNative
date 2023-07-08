@@ -1,38 +1,54 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
-    listContainer: {
-        // flexDirection: 'column',
-        // fontWeight: 'bold',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    listContainerLandscape: {
-        flexDirection: 'row', 
-        justifyContent: 'space-between',
-        // height: '100%',
-        fontWeight: 'bold',
-        alignItems: 'flex-start',
-        // justifyContent: 'center',
-    },
-    inputLandscape:{
-        // maxHeight: 100,
-        // maxWidth: 200
-        marginHorizontal: 100,
-    },
-    flatList: {
-        // maxHeight: 450,
-        marginTop: '5%',
-        maxHeight: '64%'
-        // marginBottom: 280
-    },
-    flatListContainer: {
-        maxWidth: 400,
-        alignItems: 'center',
-        // flexDirection: 'column',
-    }
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  screenContainer: {
+    flex: 1,
+    height: "100%",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  listContainer: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  listContainerLandscape: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    fontWeight: "bold",
+    alignItems: "flex-start",
+  },
+  inputPortrait: {
+    minWidth: "90%",
+    flex: 1,
+    minHeight: "35%",
+  },
+  inputLandscape: {
+    flex: 1,
+    maxHeight: "100%",
+    minWidth: "50%",
+  },
+  flatList: {
+    flex: 1,
+    marginTop: "5%",
+    maxHeight: "78%",
+  },
+  flatListContainer: {
+    flex: 1,
+    minHeight: "50%",
+    alignItems: "center",
+    maxHeight: "95%",
+  },
+  flatListLandscape: {
+    flex: 1,
+    minWidth: "50%",
+    alignItems: "center",
+  },
 });

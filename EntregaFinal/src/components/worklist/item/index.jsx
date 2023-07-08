@@ -29,26 +29,24 @@ const workToRender = ({
 
   return (
     <View style={{ ...styles.listItem, ...styles[item.status] }}>
-      <View style={styles[item.status]}>
-        <View style={styles.itemNameContainer}>
-          {item.date ? (
-            <Text
-              style={[
-                styles.itemName,
-                { fontWeight: "bold", paddingVertical: 0, paddingTop: 5, paddingBottom: 0 },
-              ]}>
-              {item.date}
-            </Text>
-          ) : null}
+      <View style={styles.itemNameContainer}>
+        {item.date ? (
           <Text
-            style={
-              item.date
-                ? [styles.itemName, { paddingVertical: 0, paddingTop: 0, paddingBottom: 5 }]
-                : styles.itemName
-            }>
-            {item.date ? item.title : item.work}
+            style={[
+              styles.itemName,
+              { fontWeight: "bold", paddingVertical: 0, paddingTop: 5, paddingBottom: 0 },
+            ]}>
+            {item.date}
           </Text>
-        </View>
+        ) : null}
+        <Text
+          style={
+            item.date
+              ? [styles.itemName, { paddingVertical: 0, paddingTop: 0, paddingBottom: 5 }]
+              : styles.itemName
+          }>
+          {item.date ? item.title : item.work}
+        </Text>
       </View>
       <View style={styles.buttonContainer}>
         <Button

@@ -8,6 +8,9 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
   inputs: {
+    flex: 1,
+    // minHeight: 200,
+    // maxHeight: "100%",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -18,6 +21,7 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
     paddingLeft: 5,
     textAlign: "center",
+    backgroundColor: "white",
   },
   button: {
     paddingVertical: 5,

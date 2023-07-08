@@ -93,37 +93,43 @@ const InputScreen = ({ workList, setWorkList, route, navigation }) => {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View>
-        <View style={styles.listContainer}>
-          <Header title="TO DO LIST" navigation={navigation} route={route} />
+      <View style={styles.screenContainer}>
+        <Header title="TO DO LIST" navigation={navigation} route={route} />
+        <View
+          style={
+            orientation === ORIENTATION.PORTRAIT
+              ? styles.listContainer
+              : styles.listContainerLandscape
+          }>
+          <View
+            style={
+              orientation === ORIENTATION.PORTRAIT ? styles.inputPortrait : styles.inputLandscape
+            }>
+            <Input
+              title="Nueva tarea"
+              description="Planifique sus tareas"
+              placeholder="Ingrese nueva tarea"
+              value={text}
+              buttonTitle="Agregar"
+              inputHandler={setThisWork}
+              pressHandler={addItem}
+            />
+          </View>
           <View
             style={
               orientation === ORIENTATION.PORTRAIT
-                ? styles.listContainer
-                : styles.listContainerLandscape
+                ? styles.flatListContainer
+                : styles.flatListLandscape
             }>
-            <View style={orientation === ORIENTATION.PORTRAIT ? null : styles.inputLandscape}>
-              <Input
-                title="Nueva tarea"
-                description="Planifique sus tareas"
-                placeholder="Ingrese nueva tarea"
-                value={text}
-                buttonTitle="Agregar"
-                inputHandler={setThisWork}
-                pressHandler={addItem}
-              />
-            </View>
-            <View style={styles.flatListContainer}>
-              {workListToShow.length > 0 ? (
-                <Text style={styles.title}>Actividades pendientes</Text>
-              ) : null}
-              <FlatList
-                renderItem={workToRender}
-                data={workListToShow}
-                keyExtractor={(item) => item.id}
-                style={styles.flatList}
-              />
-            </View>
+            {workListToShow.length > 0 ? (
+              <Text style={styles.title}>Actividades pendientes</Text>
+            ) : null}
+            <FlatList
+              renderItem={workToRender}
+              data={workListToShow}
+              keyExtractor={(item) => item.id}
+              style={styles.flatList}
+            />
           </View>
         </View>
         <Modal
