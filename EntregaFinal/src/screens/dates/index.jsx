@@ -34,7 +34,14 @@ const DatesScreen = ({ route, navigation, dateList, setDateList, token }) => {
   const [dateLocation, setDateLocation] = useState({});
   const dispatch = useDispatch();
   const dateListMarked = {};
-  pendingDates?.forEach((date) => (dateListMarked[date.date] = { marked: true }));
+  pendingDates?.forEach(
+    (date) =>
+      (dateListMarked[date.date] = {
+        marked: true,
+        selectedColor: theme.colors.secondary,
+        selectedDotColor: theme.colors.primary,
+      })
+  );
 
   useEffect(() => {
     setDateList(pendingDates || []);
@@ -125,103 +132,108 @@ const DatesScreen = ({ route, navigation, dateList, setDateList, token }) => {
       <View
         style={
           orientation === ORIENTATION.PORTRAIT
-            ? styles.screenContainer
-            : styles.screenContainerLandscape
+            ? styles.calendarContainer
+            : styles.calendarContainerLandscape
         }>
-        <View
-          style={
-            orientation === ORIENTATION.PORTRAIT
-              ? styles.calendarContainer
-              : styles.calendarContainerLandscape
-          }>
+        {orientation === ORIENTATION.PORTRAIT ? (
+          <Text style={styles.title}>Dates Screen</Text>
+        ) : null}
+        {selected === "" ? (
           <View
             style={
               orientation === ORIENTATION.PORTRAIT
                 ? styles.datesContainer
                 : styles.datesContainerLandscape
             }>
-            <Text
-              style={orientation === ORIENTATION.PORTRAIT ? styles.title : styles.titleLandscape}>
-              Dates Screen
-            </Text>
+            {orientation === ORIENTATION.LANDSCAPE ? (
+              <Text
+                style={orientation === ORIENTATION.PORTRAIT ? styles.title : styles.titleLandscape}>
+                Dates Screen
+              </Text>
+            ) : null}
             {(!locationVisible && orientation === ORIENTATION.PORTRAIT) ||
             orientation === ORIENTATION.LANDSCAPE ? (
               <ScrollView
-                style={orientation === ORIENTATION.PORTRAIT ? null : styles.scrollViewLandscape}>
+                style={
+                  orientation === ORIENTATION.PORTRAIT
+                    ? styles.scrollViewPortrait
+                    : styles.scrollViewLandscape
+                }>
                 <Calendar
                   onDayPress={(day) => setSelection(day.dateString)}
                   markedDates={{
                     [selected]: {
                       selected: true,
-                      disableTouchEvent: true,
-                      selectedDotColor: "orange",
+                      // disableTouchEvent: true,
+                      selectedColor: theme.colors.secondary,
+                      selectedDotColor: theme.colors.primary,
                     },
                     ...dateListMarked,
                   }}
                   style={
                     orientation === ORIENTATION.PORTRAIT
-                      ? styles.calendar
+                      ? { ...styles.calendar }
                       : styles.calendarLandscape
                   }
                 />
               </ScrollView>
             ) : null}
           </View>
-          {inputVisible ? (
-            <View
-              style={
-                orientation === ORIENTATION.PORTRAIT
-                  ? styles.inputComponent
-                  : styles.inputComponentLandscape
-              }>
-              <Input
-                title="Nueva cita"
-                description="Planifique sus citas"
-                placeholder="Ingrese nueva cita"
-                value={text}
-                buttonTitle="Agregar"
-                inputHandler={setThisDate}
-                pressHandler={addDate}
-                button2Title="Ubicación"
-                button2Color="blue"
-                onPressHandler2={openLocationInput}
-              />
-            </View>
-          ) : null}
-          {locationVisible ? <LocationSelector onLocation={setCurrentLocation} /> : null}
-          {!inputVisible && dateList.length > 0 ? (
-            <View
-              style={
-                orientation === ORIENTATION.PORTRAIT
-                  ? styles.flatListPortrait
-                  : styles.flatListContainer
-              }>
-              <Text
-                style={orientation === ORIENTATION.PORTRAIT ? styles.title : styles.titleLandscape}>
-                Citas pendientes
-              </Text>
-              <FlatList
-                renderItem={dateToRender}
-                data={pendingDates}
-                keyExtractor={(item) => item.id}
-                style={styles.flatList}
-              />
-            </View>
-          ) : null}
-          <Modal
-            modalVisible={modalVisible}
-            animation="slide"
-            transparentModal
-            msg="¿Está seguro de eliminar esta cita?"
-            selectedItem={selectedItem}
-            acceptButtonTitle="Eliminar"
-            acceptButtonColor={theme.colors.warning}
-            acceptHandler={deleteItem}
-            denyButtonTitle="Cancelar"
-            denyButtonColor={theme.colors.cancel}
-            denyHandler={cancelDeletion}
-          />
-        </View>
+        ) : null}
+        {inputVisible ? (
+          <View
+            style={
+              orientation === ORIENTATION.PORTRAIT
+                ? styles.inputComponent
+                : styles.inputComponentLandscape
+            }>
+            <Input
+              title="Nueva cita"
+              description="Planifique sus citas"
+              placeholder="Ingrese nueva cita"
+              value={text}
+              buttonTitle="Agregar"
+              inputHandler={setThisDate}
+              pressHandler={addDate}
+              button2Title="Ubicación"
+              button2Color="blue"
+              onPressHandler2={openLocationInput}
+            />
+          </View>
+        ) : null}
+        {locationVisible ? <LocationSelector onLocation={setCurrentLocation} /> : null}
+        {dateList.length > 0 && !locationVisible ? (
+          <View
+            style={
+              orientation === ORIENTATION.PORTRAIT
+                ? styles.flatListPortrait
+                : styles.flatListLandscape
+            }>
+            <Text
+              style={orientation === ORIENTATION.PORTRAIT ? styles.title : styles.titleLandscape}>
+              Citas pendientes
+            </Text>
+            <FlatList
+              renderItem={dateToRender}
+              data={pendingDates}
+              keyExtractor={(item) => item.id}
+              style={styles.flatList}
+            />
+          </View>
+        ) : null}
+        <Modal
+          modalVisible={modalVisible}
+          animation="slide"
+          transparentModal
+          msg="¿Está seguro de eliminar esta cita?"
+          selectedItem={selectedItem}
+          acceptButtonTitle="Eliminar"
+          acceptButtonColor={theme.colors.warning}
+          acceptHandler={deleteItem}
+          denyButtonTitle="Cancelar"
+          denyButtonColor={theme.colors.cancel}
+          denyHandler={cancelDeletion}
+        />
       </View>
     </TouchableWithoutFeedback>
   );
