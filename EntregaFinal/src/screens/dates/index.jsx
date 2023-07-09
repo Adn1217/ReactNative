@@ -74,7 +74,8 @@ const DatesScreen = ({ route, navigation, dateList, setDateList, token }) => {
       try {
         const insertedDate = await insertDate(text, selected, "Pending", dateLocation);
         newDate.id = insertedDate.insertId;
-        dispatch(insertDateToFB(newDate.id, text, selected, "Pending", dateLocation, token));
+        console.log("Localización ingresada: ", dateLocation);
+        dispatch(insertDateToFB(newDate.id, text, selected, "Pending", dateLocation, token)); // Con redux-toolkit: .unwrap(): Espera que termine.
         dispatch(selectDatesAction());
         setText("");
       } catch (err) {

@@ -6,3 +6,8 @@ export const mapUrl = (lat, long, zoom = 14, type = "roadmap", color = "red", la
 &key=${REACT_APP_GOOGLE_MAPS_API}`;
   return mapUrl;
 };
+
+export const geoUrl = (lat, long, locType = "ROOFTOP", restype = "street_address") => {
+  const geoUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&locationtype=${locType}&result_type=${restype}&key=${REACT_APP_GOOGLE_MAPS_API}`;
+  return geoUrl;
+};

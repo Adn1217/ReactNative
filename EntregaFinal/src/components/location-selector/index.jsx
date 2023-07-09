@@ -10,6 +10,7 @@ import { View, Button, Text, Alert } from "react-native";
 import { styles } from "./styles";
 import { theme, ORIENTATION } from "../../constants";
 import useOrientation from "../../hooks/useOrientation.jsx";
+import { geoUrl } from "../../utils/maps";
 import MapPreview from "../mapPreview";
 
 const LocationSelector = ({ onLocation }) => {
@@ -34,11 +35,31 @@ const LocationSelector = ({ onLocation }) => {
 
     if (!locationGranted) return;
     const location = await getCurrentPositionAsync({ timeout: 5000 });
-
     const { latitude, longitude } = location.coords;
-
-    setPickedLocation({ lat: latitude, lon: longitude });
-    onLocation({ lat: latitude, lon: longitude });
+    let address = "";
+    try {
+      const response = await fetch(geoUrl(latitude, longitude), {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      const addressData = await response.json();
+      if (addressData.status === "OK") {
+        address = addressData.results[0].formatted_address;
+        console.log("Dirección actual: ", JSON.stringify(address));
+      } else if (addressData.status === "ZERO_RESULTS") {
+        console.log("La consulta no arrojó resultados: ", addressData.estatus);
+      } else {
+        console.log(
+          `Se ha presentado error ${addressData.estatus} al consultar la dirección: ${addressData.error_message}`
+        );
+      }
+      setPickedLocation({ lat: latitude, lon: longitude });
+      onLocation({ lat: latitude, lon: longitude, address });
+    } catch (err) {
+      console.log("Se ha presentado error al intentar traducir coordenadas: ", err);
+    }
   }
 
   return (

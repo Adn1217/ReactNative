@@ -4,7 +4,7 @@ import {
   REACT_APP_FIREBASE_AUTH_SIGN_UP_URL,
 } from "@env";
 
-export const insertDateFB = async (localId, title, date, status, coords, token) => {
+export const insertDateFB = async (localId, title, date, status, coords = {}, token) => {
   try {
     const response = await fetch(`${REACT_APP_FIREBASE_REALTIME_DB_URL}dates.json?auth=${token}`, {
       method: "POST",
