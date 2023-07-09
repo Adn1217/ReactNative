@@ -5,10 +5,10 @@ import { theme } from "../../constants";
 export const styles = StyleSheet.create({
   containerPortrait: {
     flex: 1,
-    maxWidth: 350,
-    height: "50%",
+    maxWidth: "90%",
+    height: "40%",
     maxHeight: 350,
-    minHeight: 75,
+    // minHeight: 30,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
@@ -31,12 +31,25 @@ export const styles = StyleSheet.create({
     borderStyle: "solid",
     margin: 10,
   },
-  button: {
-    maxWidth: 200,
+  buttons: {
+    flex: 1,
+    flexDirection: "row",
+    maxWidth: "80%",
+    maxHeight: "20%",
+    // maxWidth: 200,
     marginVertical: 0,
+    alignItems: "center",
+    gap: 5,
   },
-  preview: {
-    // textAlign: "center",
-    // maxHeight: "90%",
+  buttonsLandscape: {
+    flex: 1,
+    flexDirection: "row",
+    maxHeight: "18%",
+    // maxWidth: 200,
+    // marginVertical: 5,
+    alignItems: "center",
+    gap: 5,
   },
+
+  preview: {},
 });

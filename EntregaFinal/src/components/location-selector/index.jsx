@@ -70,7 +70,8 @@ const LocationSelector = ({ onLocation }) => {
       <MapPreview location={pickedLocation} style={styles.preview}>
         <Text>No hay ubicación seleccionada</Text>
       </MapPreview>
-      <View style={styles.button}>
+      <View style={orientation === ORIENTATION.PORTRAIT ? styles.buttons : styles.buttonsLandscape}>
+        <Button title="Seleccionar" onPress={selectLocation} color={theme.colors.secondary} />
         <Button title="Ubicación actual" onPress={selectLocation} color={theme.colors.primary} />
       </View>
     </View>

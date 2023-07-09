@@ -13,6 +13,6 @@ export const styles = StyleSheet.create({
     height: "95%",
     marginHorizontal: "3%",
     // marginVertical: 0,
-    resizeMode: "contain",
+    resizeMode: "stretch",
   },
 });
