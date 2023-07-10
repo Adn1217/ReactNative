@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { theme } from "../../constants";
-import { DatesScreen } from "../../screens";
+import { DatesScreen, MapScreen } from "../../screens";
 import { selectDatesAction } from "../../store/actions/dateItems.action";
 
 const Stack = createNativeStackNavigator();
@@ -17,6 +17,10 @@ const DatesNavigator = ({ route, navigation }) => {
   useEffect(() => {
     dispatch(selectDatesAction());
   }, []);
+
+  const MapScreenComponent = ({ route, navigation }) => {
+    return <MapScreen route={route} navigation={navigation} />;
+  };
 
   const DatesScreenComponent = ({ route, navigation }) => {
     return (
@@ -46,6 +50,11 @@ const DatesNavigator = ({ route, navigation }) => {
         name="Dates"
         component={DatesScreenComponent}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Map"
+        component={MapScreenComponent}
+        options={{ title: "Mapa", headerShown: true }}
       />
     </Stack.Navigator>
   );
