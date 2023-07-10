@@ -1,37 +1,70 @@
-import React, { useState } from "react";
-import { Text, Button, View } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import React, { useState, useLayoutEffect } from "react";
+import { Text, Button, View, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 import { styles } from "./styles.js";
+import { theme } from "../../constants/theme.js";
+import { getAddress } from "../../utils/maps/index.js";
 
 const Map = ({ navigation, route }) => {
   const [selectedLocation, setSelectedLocation] = useState({
-    lat: route.params?.latitude || "-",
-    long: route.params?.longitude || "-",
+    latitude: route.params?.latitude || "-",
+    longitude: route.params?.longitude || "-",
+    address: route.params?.address || "-",
   });
   const params = route.params || {};
   const { redirigido = "Error" } = params;
   const initialRegion = {
-    latitude: selectedLocation.lat,
-    longitude: selectedLocation.long,
+    latitude: selectedLocation.latitude,
+    longitude: selectedLocation.longitude,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
-  const handlePickLocation = (event) => {
-    const lat = event.nativeEvent.coordinate.latitude;
-    const long = event.nativeEvent.coordinate.longitude;
-    // console.log(`Ubicación seleccionada: Lat ${lat} - Long: ${long}`);
-    setSelectedLocation({ lat, long });
+  const handlePickLocation = async (event) => {
+    const latitude = event.nativeEvent.coordinate.latitude;
+    const longitude = event.nativeEvent.coordinate.longitude;
+    console.log(`Ubicación seleccionada: Lat ${latitude} - Long: ${longitude}`);
+    const address = await getAddress({ latitude, longitude });
+    setSelectedLocation({ latitude, longitude, address });
   };
+
+  const saveLocation = () => {
+    if (selectedLocation) {
+      navigation.navigate("Dates", {
+        pickedLocation: { ...selectedLocation },
+        locationVisible: true,
+      });
+    }
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity disabled={!selectedLocation} onPress={() => saveLocation()}>
+          <Ionicons
+            name="add-circle-outline"
+            size={styles.saveIcon.fontSize}
+            color={!selectedLocation ? theme.colors.cancel : theme.colors.text}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, [selectedLocation]);
+
   return (
     <View style={styles.container}>
       <View style={styles.info}>
-        <Text style={styles.coordName}>Lat:</Text>
-        <Text style={styles.coord}>{selectedLocation.lat}</Text>
-        <Text style={styles.coordName}>Long:</Text>
-        <Text style={styles.coord}>{selectedLocation.long}</Text>
+        <View style={styles.coords}>
+          <Text style={styles.coordName}>Lat:</Text>
+          <Text style={styles.coord}>{selectedLocation.latitude}</Text>
+          <Text style={styles.coordName}>Long:</Text>
+          <Text style={styles.coord}>{selectedLocation.longitude}</Text>
+        </View>
+        <Text style={styles.coordName}>Address:</Text>
+        <Text style={styles.coord}>{selectedLocation.address}</Text>
       </View>
-      {selectedLocation.lat & selectedLocation.long ? (
+      {selectedLocation.latitude & selectedLocation.longitude ? (
         <View style={styles.mapContainer}>
           <MapView
             initialRegion={initialRegion}
@@ -42,8 +75,8 @@ const Map = ({ navigation, route }) => {
               <Marker
                 title="Ubicación seleccionada"
                 coordinate={{
-                  latitude: selectedLocation?.lat,
-                  longitude: selectedLocation?.long,
+                  latitude: selectedLocation?.latitude,
+                  longitude: selectedLocation?.longitude,
                 }}
               />
             ) : null}

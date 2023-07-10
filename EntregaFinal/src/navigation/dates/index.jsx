@@ -9,6 +9,8 @@ import { selectDatesAction } from "../../store/actions/dateItems.action";
 const Stack = createNativeStackNavigator();
 
 const DatesNavigator = ({ route, navigation }) => {
+  const [currentDate, setCurrentDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
   const pendingDates = useSelector((state) => state.dateList.items);
   const token = useSelector((state) => state.auth.token);
   const [dateList, setDateList] = useState(pendingDates || []);
@@ -27,6 +29,10 @@ const DatesNavigator = ({ route, navigation }) => {
       <DatesScreen
         route={route}
         navigation={navigation}
+        currentDate={currentDate}
+        setCurrentDate={setCurrentDate}
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
         dateList={dateList}
         setDateList={setDateList}
         token={token}

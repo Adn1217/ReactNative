@@ -7,6 +7,11 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   info: {
+    maxHeight: "20%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  coords: {
     flexDirection: "row",
     width: "100%",
     justifyContent: "center",
@@ -23,10 +28,13 @@ export const styles = StyleSheet.create({
     borderStyle: "solid",
     // ...StyleSheet.absoluteFillObject,
     maxWidth: "99%",
-    minHeight: "96%",
+    minHeight: "90%",
     justifyContent: "space-around",
     marginHorizontal: "1%",
     marginVertical: "1%",
+  },
+  saveIcon: {
+    fontSize: 30,
   },
   map: {
     flex: 1,

@@ -4,11 +4,15 @@ import { styles } from "./styles";
 import { mapUrl } from "../../utils/maps";
 
 const MapPreview = ({ children, location = {}, style }) => {
-  const { lat, lon } = location;
-  const MapPreviewUrl = location ? mapUrl(lat, lon) : "";
+  const { latitude, longitude } = location;
+  const MapPreviewUrl = location ? mapUrl(latitude, longitude) : "";
   return (
     <View style={{ ...styles.container, ...style }}>
-      {lat && lon ? <Image style={styles.mapImage} source={{ uri: MapPreviewUrl }} /> : children}
+      {latitude && longitude ? (
+        <Image style={styles.mapImage} source={{ uri: MapPreviewUrl }} />
+      ) : (
+        children
+      )}
     </View>
   );
 };
