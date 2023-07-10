@@ -11,6 +11,6 @@ export const styles = StyleSheet.create({
   },
   flatList: {
     marginTop: "2%",
-    maxHeight: "95%",
+    maxHeight: "85%",
   },
 });

@@ -73,6 +73,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-around",
     maxHeight: "40%",
+    minHeight: "10%",
   },
   flatListLandscape: {
     flex: 1,

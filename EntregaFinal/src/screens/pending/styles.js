@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
   },
   screenContainer: {
     flex: 1,
-    height: "100%",
+    // height: "100%",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
@@ -28,7 +28,8 @@ export const styles = StyleSheet.create({
   inputPortrait: {
     minWidth: "90%",
     flex: 1,
-    minHeight: "35%",
+    minHeight: "30%",
+    marginVertical: "5%",
   },
   inputLandscape: {
     flex: 1,

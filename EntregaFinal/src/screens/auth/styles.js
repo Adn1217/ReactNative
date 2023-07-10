@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     width: "80%",
     maxWidth: 400,
     height: "50%",
-    minHeight: 320,
+    minHeight: 340,
     padding: 15,
     margin: 15,
     backgroundColor: "white",
