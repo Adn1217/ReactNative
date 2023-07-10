@@ -6,7 +6,7 @@ import {
   requestBackgroundPermissionsAsync,
 } from "expo-location";
 import { useState } from "react";
-import { View, Button, Text, Alert } from "react-native";
+import { View, Button, Text, Alert, Keyboard } from "react-native";
 
 import { styles } from "./styles";
 import { theme, ORIENTATION } from "../../constants";
@@ -41,6 +41,7 @@ const LocationSelector = ({ onLocation }) => {
     const { latitude, longitude } = location.coords;
     let address = "";
     if (fromMap) {
+      Keyboard.dismiss();
       navigation.navigate("Map", { redirigido: "Ok", latitude, longitude });
     } else {
       try {

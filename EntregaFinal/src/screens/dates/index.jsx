@@ -119,7 +119,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList, token }) => {
 
   function outsidePressHandler() {
     // eslint-disable-next-line no-unused-expressions
-    Keyboard.dismiss;
+    Keyboard.dismiss();
     setSelected("");
     setText("");
     setInputVisible(false);
