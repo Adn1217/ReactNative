@@ -22,16 +22,28 @@ import {
   selectDatesAction,
 } from "../../store/actions/dateItems.action.js";
 
-const DatesScreen = ({ route, navigation, dateList, setDateList, token }) => {
-  const [selected, setSelected] = useState("");
+const DatesScreen = ({
+  route,
+  navigation,
+  currentDate,
+  setCurrentDate,
+  selectedDate,
+  setSelectedDate,
+  dateList,
+  setDateList,
+  token,
+}) => {
+  const [selected, setSelected] = useState(selectedDate);
   const orientation = useOrientation();
-  const [text, setText] = useState("");
+  const [text, setText] = useState(currentDate);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [inputVisible, setInputVisible] = useState(false);
-  const [locationVisible, setLocationVisible] = useState(false);
+  const [inputVisible, setInputVisible] = useState(
+    route.params?.locationVisible || currentDate !== "" || selected !== "" || false
+  );
+  const [locationVisible, setLocationVisible] = useState(route.params?.locationVisible || false);
   const [modalVisible, setModalVisible] = useState(false);
   const pendingDates = useSelector((state) => state.dateList.items);
-  const [dateLocation, setDateLocation] = useState({});
+  const [dateLocation, setDateLocation] = useState(route.params?.pickedLocation || {});
   const dispatch = useDispatch();
   const dateListMarked = {};
   pendingDates?.forEach(
@@ -50,6 +62,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList, token }) => {
   function setSelection(day) {
     setInputVisible(true);
     setSelected(day);
+    setSelectedDate(day);
   }
 
   function setThisDate(text) {
@@ -57,6 +70,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList, token }) => {
   }
 
   function openLocationInput() {
+    setCurrentDate(text);
     setLocationVisible(true);
   }
   function setCurrentLocation(location) {
@@ -74,11 +88,21 @@ const DatesScreen = ({ route, navigation, dateList, setDateList, token }) => {
       try {
         const insertedDate = await insertDate(text, selected, "Pending", dateLocation);
         newDate.id = insertedDate.insertId;
-        dispatch(insertDateToFB(newDate.id, text, selected, "Pending", dateLocation, token));
+        console.log(
+          "Nueva cita ingresada: ",
+          JSON.stringify({ text, selected, status: "Pending", dateLocation })
+        );
+        // console.log("Localización ingresada: ", dateLocation);
+        dispatch(insertDateToFB(newDate.id, text, selected, "Pending", dateLocation, token)); // Con redux-toolkit: .unwrap(): Espera que termine.
         dispatch(selectDatesAction());
+        setCurrentDate("");
         setText("");
+        if (route.params?.pickedLocation) {
+          route.params.pickedLocation = undefined;
+          route.params.locationVisible = false;
+        }
       } catch (err) {
-        console.error("Se ha presentador error intentado eliminar una cita: ", err);
+        console.error("Se ha presentador error intentado agregar una cita: ", err);
       }
     }
   }
@@ -90,7 +114,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList, token }) => {
       dispatch(selectDatesAction());
       setModalVisible(false);
     } catch (err) {
-      console.error("Se ha presentado error intendo eliminar una cita: ", err);
+      console.error("Se ha presentado error intentando eliminar una cita: ", err);
     }
   }
 
@@ -118,7 +142,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList, token }) => {
 
   function outsidePressHandler() {
     // eslint-disable-next-line no-unused-expressions
-    Keyboard.dismiss;
+    Keyboard.dismiss();
     setSelected("");
     setText("");
     setInputVisible(false);
@@ -138,7 +162,7 @@ const DatesScreen = ({ route, navigation, dateList, setDateList, token }) => {
         {orientation === ORIENTATION.PORTRAIT ? (
           <Text style={styles.title}>Dates Screen</Text>
         ) : null}
-        {selected === "" ? (
+        {selected === "" && !inputVisible ? (
           <View
             style={
               orientation === ORIENTATION.PORTRAIT
