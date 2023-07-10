@@ -22,15 +22,16 @@ const LocationSelector = ({ onLocation }) => {
   // Keyboard.dismiss();
 
   const verifyPermissions = async () => {
-    // const { status } = await requestPermissionsAsync();
-    const { status } = await requestForegroundPermissionsAsync();
+    const { status } = await requestPermissionsAsync();
+    // const { status } = await requestForegroundPermissionsAsync();
+    console.log("Permisos: ", status);
     if (status !== "granted") {
       Alert.alert("Permisos insuficientes", "Necesitamos permisos para la ubicación", [
         { text: "Ok" },
       ]);
       return false;
     } else {
-      await requestBackgroundPermissionsAsync();
+      // await requestBackgroundPermissionsAsync();
       return true;
     }
   };
