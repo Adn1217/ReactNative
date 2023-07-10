@@ -1,6 +1,6 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React, { useState, useLayoutEffect } from "react";
-import { Text, Button, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 import { styles } from "./styles.js";
