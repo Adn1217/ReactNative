@@ -30,6 +30,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     minHeight: "30%",
     marginVertical: "5%",
+    marginTop: "10%",
   },
   inputLandscape: {
     flex: 1,
