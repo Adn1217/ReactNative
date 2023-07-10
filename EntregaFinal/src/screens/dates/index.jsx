@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  FlatList,
-  ScrollView,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from "react-native";
+import { Text, View, FlatList, ScrollView, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { useSelector, useDispatch } from "react-redux";
 
