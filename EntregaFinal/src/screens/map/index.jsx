@@ -24,7 +24,7 @@ const Map = ({ navigation, route }) => {
   const handlePickLocation = async (event) => {
     const latitude = event.nativeEvent.coordinate.latitude;
     const longitude = event.nativeEvent.coordinate.longitude;
-    console.log(`Ubicación seleccionada: Lat ${latitude} - Long: ${longitude}`);
+    // console.log(`Ubicación seleccionada: Lat ${latitude} - Long: ${longitude}`);
     const address = await getAddress({ latitude, longitude });
     setSelectedLocation({ latitude, longitude, address });
   };

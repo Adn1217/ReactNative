@@ -21,8 +21,6 @@ const LocationSelector = ({ onLocation }) => {
   const navigation = useNavigation();
   // Keyboard.dismiss();
 
-  console.log("PickedLocation: ", pickedLocation);
-
   const verifyPermissions = async () => {
     // const { status } = await requestPermissionsAsync();
     const { status } = await requestForegroundPermissionsAsync();
