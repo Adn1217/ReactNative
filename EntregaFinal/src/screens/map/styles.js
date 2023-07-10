@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 import { theme } from "../../constants";
 
@@ -30,6 +30,7 @@ export const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+    height: Dimensions.get("window").height,
   },
   errorDisplay: {
     flex: 1,

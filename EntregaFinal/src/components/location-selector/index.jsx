@@ -18,7 +18,7 @@ const LocationSelector = ({ onLocation }) => {
   const [pickedLocation, setPickedLocation] = useState();
   const orientation = useOrientation();
   const navigation = useNavigation();
-
+  Keyboard.dismiss();
   const verifyPermissions = async () => {
     // const { status } = await requestPermissionsAsync();
     const { status } = await requestForegroundPermissionsAsync();
