@@ -10,9 +10,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "requireFullScreen": true
@@ -30,7 +28,14 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.adn1217.toDoApp"
+      "package": "com.adn1217.toDoApp",
+      "versionCode": 1.0,
+      "permissions": ["ACCESS_COARSE_LOCATION", "CAMERA"],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAw0Fl9pIBYZEJtAK_g8jaVuSCnuMMt06o"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
